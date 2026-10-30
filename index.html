@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-CL">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#22252A">
-<title>Soundblooms Diffuser Generator</title>
+<meta name="theme-color" content="#eaeef3">
+<title>Generador de Difusores Acústicos QRD</title>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
@@ -453,62 +453,213 @@ table.bt-modes{width:100%;border-collapse:collapse;font-size:16px;font-variant-n
 @media (prefers-reduced-motion: reduce){
   .sb-band,.sb-eyes>i,.sb-arc{transition:none!important;animation:none!important}
 }
+
+/* =====================================================================
+   CONSULTORIA SSO - tema claro, separacion de modulos, tipografia.
+   Este bloque va AL FINAL del <style> para ganar en cascada.
+   ===================================================================== */
+
+/* ---------- 1. TIPOGRAFIA ---------- */
+:root{
+  --sans:"Inter","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --fs-xs:12px;--fs-sm:13.5px;--fs-base:15px;--fs-md:16.5px;--fs-lg:19px;--fs-xl:24px;--fs-2xl:32px;
+  --lh-tight:1.25;--lh-body:1.6;
+  --card:#ffffff;--card-line:rgba(26,32,44,.12);--card-title:rgba(26,32,44,.60);
+  --shadow:0 1px 2px rgba(26,32,44,.05),0 8px 24px rgba(26,32,44,.06);
+}
+body{
+  font-family:var(--sans); font-size:var(--fs-base); line-height:var(--lh-body);
+  font-weight:450; letter-spacing:0;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+h1{ font-family:var(--sans); font-size:clamp(28px,3.1vw,38px); line-height:1.18;
+  letter-spacing:-.024em; font-weight:750 }
+h2{ font-family:var(--sans); font-size:22px; line-height:1.25; letter-spacing:-.016em; font-weight:720 }
+h3{ font-family:var(--sans); font-size:16.5px; line-height:1.35; letter-spacing:-.006em; font-weight:700 }
+p,li,dd,dt{ font-size:var(--fs-base); line-height:var(--lh-body) }
+.mast h1{ font-weight:750; font-size:clamp(28px,3.1vw,38px); line-height:1.18;
+  letter-spacing:-.024em; max-width:20ch }
+.credit{ font-family:var(--sans); font-size:var(--fs-md); line-height:1.62; max-width:76ch }
+.credit strong{ font-weight:700; color:var(--ink) }
+.lead{ font-family:var(--sans); font-size:var(--fs-md); line-height:1.6 }
+.note,.status{ font-family:var(--sans); font-size:var(--fs-sm); line-height:1.55 }
+.lab{ font-family:var(--sans); font-size:var(--fs-xs); font-weight:750; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--kicker) }
+.val{ font-family:var(--sans); font-size:var(--fs-md); font-weight:650; font-variant-numeric:tabular-nums }
+output,input,button,select,textarea{ font-family:var(--sans) }
+input,select,textarea{ font-size:var(--fs-base) }
+.hex,.num,.ctrl output{ font-family:var(--sans); font-size:var(--fs-base); font-variant-numeric:tabular-nums }
+.btn,.key{ font-family:var(--sans); font-size:var(--fs-base); font-weight:600; letter-spacing:.005em }
+.btn.big{ font-family:var(--sans); font-size:var(--fs-md); font-weight:700 }
+small,.key small,.nameplate small,.aside{ font-family:var(--sans); font-size:var(--fs-xs); font-weight:600 }
+table{ font-family:var(--sans); font-size:var(--fs-sm); font-variant-numeric:tabular-nums }
+th{ font-family:var(--sans); font-size:var(--fs-xs); font-weight:750; letter-spacing:.055em; text-transform:uppercase }
+td{ font-family:var(--sans); font-size:var(--fs-sm) }
+.bandbox .big{ font-family:var(--sans); font-size:var(--fs-xl); font-weight:700; font-variant-numeric:tabular-nums }
+.info dt{ font-family:var(--sans); font-size:var(--fs-xs); font-weight:750; letter-spacing:.055em; text-transform:uppercase }
+.info dd{ font-family:var(--sans); font-size:var(--fs-base); font-variant-numeric:tabular-nums }
+.aside,.hrow .aside{ font-size:var(--fs-sm) }
+.eyebrow,.modtag{ font-family:var(--sans) }
+code,kbd{ font-family:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace; font-size:.92em }
+a{ text-underline-offset:3px }
+
+/* ---------- 2. TEMA CLARO ---------- */
+:root[data-theme="light"]{
+  --bg-rgb:234,238,243;--fg-rgb:26,32,44;--acc-rgb:0,168,89;--shade-rgb:26,32,44;
+  --paper:#eaeef3;--ink:#1a202c;--acc:#00a859;
+  --kicker:rgba(var(--fg-rgb),.60);--ghost:rgba(var(--fg-rgb),.55);--dim:rgba(var(--fg-rgb),.42);
+  --deep:color-mix(in srgb,var(--acc) 82%,var(--paper));
+  --well:inset 0 1px 2px rgba(var(--shade-rgb),.10),inset 0 0 0 1px rgba(var(--fg-rgb),.10);
+  --well-bg:rgba(var(--fg-rgb),.045);
+  --slug:inset 0 1px 0 rgba(var(--fg-rgb),.05),inset 0 0 0 1px rgba(var(--fg-rgb),.10),0 1px 1px rgba(var(--shade-rgb),.05);
+  --slug-bg:rgba(var(--fg-rgb),.04);
+  --press:inset 0 2px 3px rgba(var(--shade-rgb),.10),inset 0 0 0 1px rgba(var(--fg-rgb),.10);
+  --press-bg:rgba(var(--shade-rgb),.07);
+  --rule:rgba(var(--fg-rgb),.14);
+  --card:#ffffff;--card-line:rgba(var(--fg-rgb),.12);--card-title:rgba(var(--fg-rgb),.60);
+  --shadow:0 1px 2px rgba(var(--shade-rgb),.05),0 8px 24px rgba(var(--shade-rgb),.06);
+}
+:root[data-theme="light"] body{ background:var(--paper); color:var(--ink) }
+:root[data-theme="light"] .viewport{ background:#e8ecf0 }
+:root[data-theme="light"] .bt-modes tbody tr.sel{ background:rgba(var(--acc-rgb),.13) }
+:root[data-theme="light"] .bt-modes tbody tr:hover{ background:rgba(var(--fg-rgb),.05) }
+:root[data-theme="light"] .walls .wbar{ background:rgba(var(--fg-rgb),.18) }
+:root[data-theme="light"] .walls .wk[aria-pressed="true"] .wbar{ background:var(--acc) }
+:root[data-theme="light"] .sb-band{ background:var(--acc) }
+:root[data-theme="light"] .sb-arc{ stroke:var(--acc) }
+:root[data-theme="light"] .sb-eyes>i{ background:var(--ink) }
+:root[data-theme="light"] .plan-wrap svg rect[fill]{ fill:#f4f6f8 }
+:root[data-theme="light"] .plan-wrap svg text{ fill:#1a202c }
+:root[data-theme="light"] .chip.cust{ background:#5E7FA8 }
+:root[data-theme="light"] .btn.big{ color:#fff }
+
+/* ---------- 3. SEPARACION DE MODULOS ---------- */
+.modtag{
+  display:flex; align-items:center; gap:10px;
+  font-size:var(--fs-xs); font-weight:800; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--card-title); margin:0 0 16px;
+}
+.modtag::after{ content:""; flex:1 1 auto; height:1px; background:var(--rule) }
+.modtag .modtag-n{ color:var(--acc); font-variant-numeric:tabular-nums; letter-spacing:.04em }
+
+/* Tarjetas: solo en tema claro (en oscuro el diseno original ya separa) */
+:root[data-theme="light"] .panel.slab,
+:root[data-theme="light"] .stage.slab,
+:root[data-theme="light"] .dash,
+:root[data-theme="light"] .bandbox,
+:root[data-theme="light"] .getbar,
+:root[data-theme="light"] .gal,
+:root[data-theme="light"] .bt-card,
+:root[data-theme="light"] .bt-sum{
+  background:var(--card);
+  border:1px solid var(--card-line);
+  box-shadow:var(--shadow);
+  border-radius:16px;
+}
+:root[data-theme="light"] .panel.slab{ padding:22px 24px }
+:root[data-theme="light"] .stage.slab{ padding:22px 24px }
+:root[data-theme="light"] .dash{ padding:20px 22px; border-radius:14px }
+:root[data-theme="light"] .bandbox{ padding:20px 22px 8px; border-radius:14px }
+:root[data-theme="light"] .getbar{ padding:26px 28px; border-radius:16px }
+:root[data-theme="light"] .gal{ padding:24px 26px; border-radius:16px }
+:root[data-theme="light"] .bt-card{ padding:22px 24px; border-radius:14px }
+:root[data-theme="light"] .bt-sum{ padding:20px 22px; border-radius:14px }
+:root[data-theme="light"] .viewport{ border-radius:12px; overflow:hidden; border:1px solid var(--card-line) }
+:root[data-theme="light"] .psec{ padding:18px 20px; border-radius:12px;
+  background:rgba(var(--fg-rgb),.025); border:1px solid rgba(var(--fg-rgb),.07) }
+:root[data-theme="light"] .gcol{ border-radius:12px; padding:18px 20px;
+  background:rgba(var(--fg-rgb),.025); border:1px solid rgba(var(--fg-rgb),.07) }
+:root[data-theme="light"] .hrow h3{ padding-bottom:10px; border-bottom:1px solid var(--rule);
+  margin-bottom:12px; display:block }
+
+/* ---------- 4. SWITCH DE TEMA ---------- */
+.themeswitch{
+  position:fixed; top:14px; right:14px; z-index:60;
+  display:inline-flex; align-items:center; gap:9px;
+  padding:8px 14px 8px 10px; border-radius:999px; cursor:pointer;
+  font-family:var(--sans); font-size:var(--fs-xs); font-weight:750;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink); background:var(--card);
+  border:1px solid var(--card-line);
+  box-shadow:0 2px 10px rgba(26,32,44,.10);
+  transition:transform .15s cubic-bezier(.16,.84,.3,1), box-shadow .15s cubic-bezier(.16,.84,.3,1);
+}
+.themeswitch:hover{ transform:translateY(-1px); box-shadow:0 5px 16px rgba(26,32,44,.16) }
+.themeswitch:focus-visible{ outline:2px solid var(--acc); outline-offset:3px }
+.themeswitch .ts-ico{
+  width:17px; height:17px; flex:0 0 17px; border-radius:50%;
+  border:1.5px solid var(--kicker); position:relative; overflow:hidden;
+}
+.themeswitch .ts-ico::after{
+  content:""; position:absolute; inset:-2px 50% -2px 50%;
+  background:var(--acc); transition:inset .28s cubic-bezier(.16,.84,.3,1);
+}
+:root[data-theme="light"] .themeswitch .ts-ico::after{ inset:-2px -2px -2px 50% }
+@media (max-width:700px){
+  .themeswitch{ top:10px; right:10px; padding:7px 12px 7px 9px }
+  .themeswitch .ts-label{ display:none }
+}
 </style>
 </head>
 <body>
 
+<button type="button" class="themeswitch" id="themeSwitch" aria-pressed="true" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema"><span class="ts-ico" aria-hidden="true"></span><span class="ts-label" id="themeLabel">Claro</span></button>
 <div class="wrap">
   <header class="mast">
     <div class="title">
-      <h1>Diffuser Generator</h1>
+      <h1>Generador de Difusores Acústicos QRD</h1>
       <a class="by" href="https://soundblooms.com/" rel="noopener" target="_blank" aria-label="by Soundblooms"><span class="by-word" aria-hidden="true">by</span><span class="sb-mark" aria-hidden="true">sound<span class="sb-face"><i class="sb-band"></i><span class="sb-eyes" data-eyes="calm"><i><svg class="sb-arc" viewBox="0 0 22 17" fill="none" aria-hidden="true"><path d="M3,13 Q11,2.6 19,13" stroke="currentColor" stroke-width="4.6" stroke-linecap="round"/></svg></i><i><svg class="sb-arc" viewBox="0 0 22 17" fill="none" aria-hidden="true"><path d="M3,13 Q11,2.6 19,13" stroke="currentColor" stroke-width="4.6" stroke-linecap="round"/></svg></i></span></span>blooms</span></a>
     </div>
   </header>
 
   <div class="tabs" role="tablist" aria-label="Generator">
-    <button type="button" role="tab" id="tabDiff" aria-selected="true" aria-controls="paneDiff" data-tab="diff">Diffusers</button>
-    <button type="button" role="tab" id="tabBass" aria-selected="false" aria-controls="paneBass" data-tab="bass" tabindex="-1">Bass traps</button>
+    <button type="button" role="tab" id="tabDiff" aria-selected="true" aria-controls="paneDiff" data-tab="diff">Difusores</button>
+    <button type="button" role="tab" id="tabBass" aria-selected="false" aria-controls="paneBass" data-tab="bass" tabindex="-1">Trampas de graves</button>
   </div>
 
   <div id="err" class="err" role="alert" hidden></div>
 
   <div id="paneDiff" role="tabpanel" aria-labelledby="tabDiff">
-  <p class="credit"><strong>Working diffusers, not wall art.</strong> Every well depth comes from the quadratic residue sequence n&sup2; mod N (Schroeder), so a tile spreads a reflection into many directions and arrival times instead of sending it back as one echo. They do not absorb sound and do nothing for bass, room modes or loudness; for a trap tuned to one room mode, see the <a href="#bass-traps" id="linkBass">Bass traps</a> tab. Deep tiles treat a room from about their design frequency up, once the wall is wide enough; block tiles are a shallow 2D diffuser for upper mids and treble. Formulas after T. J. Cox and P. D'Antonio, <cite>Acoustic Absorbers and Diffusers</cite>, 3rd ed., CRC Press, 2016. The band shown is design intent, calculated from the shape of the tiles, not a measurement. The ready-made tiles for the A1 mini, MK4 / Core One and P1S / X1 are also on <a href="https://www.printables.com/model/1887298-acoustic-diffuser-tiles-deep-and-blocks-sized-for" target="_blank" rel="noopener">Printables</a>.</p>
+  <p class="credit"><strong>Difusores que funcionan, no adorno de muro.</strong> Cada profundidad de pozo sale de la secuencia de residuos cuadráticos n&sup2; mod N (Schroeder), de modo que un panel reparte una reflexión en muchas direcciones y tiempos de llegada en vez de devolverla como un solo eco. No absorben sonido y no hacen nada con los graves, los modos de sala ni el nivel de presión; para una trampa afinada a un modo de sala, mira la <a href="#bass-traps" id="linkBass">Trampas de graves</a> tab. Los paneles profundos tratan la sala desde su frecuencia de diseño hacia arriba, siempre que el muro sea suficientemente ancho; los bloques son un difusor 2D superficial para medios agudos y agudos. Fórmulas según T. J. Cox y P. D'Antonio, <cite>Acoustic Absorbers and Diffusers</cite>, 3rd ed., CRC Press, 2016. La banda mostrada es intención de diseño, calculada a partir de la forma de los paneles, no una medición. Los paneles listos para la A1 mini, la MK4 / Core One y la P1S / X1 también están en <a href="https://www.printables.com/model/1887298-acoustic-diffuser-tiles-deep-and-blocks-sized-for" target="_blank" rel="noopener">Printables</a>.</p>
 
   <div class="grid">
     <section class="stage slab" aria-label="Preview and downloads">
+    <p class="modtag"><span class="modtag-n">02</span> Vista previa en 3D</p>
       <div class="stage-top">
-        <div class="nameplate" id="nameplate">Deep series<small>Loading...</small></div>
+        <div class="nameplate" id="nameplate">Serie profunda<small>Cargando...</small></div>
         <div class="mats" id="mats" role="group" aria-label="Preview colour"></div>
       </div>
-      <div class="viewport" id="view"><div class="none" id="viewNone">Loading the 3D preview...</div></div>
-      <div class="viewbar"><p class="note">Drag to orbit, scroll to zoom, right-drag to pan.</p><button type="button" class="key small" id="bReset">Reset view</button></div>
+      <div class="viewport" id="view"><div class="none" id="viewNone">Cargando la vista previa 3D...</div></div>
+      <div class="viewbar"><p class="note">Arrastra para orbitar, rueda para acercar, botón derecho para desplazar.</p><button type="button" class="key small" id="bReset">Restablecer vista</button></div>
       <div class="tilepick">
-        <div class="hrow"><h3 id="lTile">See each tile of this wall</h3><output id="tileOut"></output></div>
+        <div class="hrow"><h3 id="lTile">Revisa cada panel de este muro</h3><output id="tileOut"></output></div>
         <div class="tiles" id="tiles" role="group" aria-labelledby="lTile"></div>
       </div>
-      <section class="dash" id="dash" aria-label="Your wall: how many tiles, how much sense, print time and filament" aria-live="polite"></section>
-      <section class="bandbox" id="band" aria-label="Frequency band"></section>
+      <section class="dash" id="dash"
+    <p class="modtag"><span class="modtag-n">03</span> Resumen del muro</p> aria-label="Your wall: how many tiles, how much sense, print time and filament" aria-live="polite"></section>
+      <section class="bandbox" id="band"
+    <p class="modtag"><span class="modtag-n">04</span> Banda de frecuencia</p> aria-label="Banda de frecuencia"></section>
       <dl class="info" id="derived"></dl>
     </section>
 
     <aside class="panel slab" aria-label="Settings">
-      <h3 id="lSeries">Series</h3>
+    <p class="modtag"><span class="modtag-n">01</span> Ajustes del panel</p>
+      <h3 id="lSeries">Serie</h3>
       <div class="keys" id="series" role="group" aria-labelledby="lSeries">
-        <button type="button" class="key" data-series="deep" aria-pressed="true"><b>Deep</b><small>1D QRD, wells with fins</small></button>
-        <button type="button" class="key" data-series="blocks" aria-pressed="false"><b>Blocks</b><small>2D QRD, shallow</small></button>
+        <button type="button" class="key" data-series="deep" aria-pressed="true"><b>Profunda</b><small>QRD 1D, pozos con aletas</small></button>
+        <button type="button" class="key" data-series="blocks" aria-pressed="false"><b>Bloques</b><small>QRD 2D, superficial</small></button>
       </div>
 
       <div class="psec">
-        <div class="hrow"><h3 id="lWall">How many tiles?</h3><output id="wallOut"></output></div>
-        <p class="about tight">You choose the whole wall, not one tile. Taller column, happier face: the wall makes more sense.</p>
+        <div class="hrow"><h3 id="lWall">¿Cuántos paneles?</h3><output id="wallOut"></output></div>
+        <p class="about tight">Eliges el muro completo, no un panel. Columna alta, mejor resultado: el muro tiene más sentido.</p>
         <div class="walls" id="walls" role="group" aria-labelledby="lWall"></div>
-        <p class="note wcap">Placement guidance, not a measurement. Diffusers work best a little away from you; very close to your ears they help less.</p>
+        <p class="note wcap">Orientación de ubicación, no una medición. Los difusores funcionan mejor a cierta distancia de ti; muy cerca de tus oídos ayudan menos.</p>
       </div>
 
       <div class="psec">
-        <h3 id="lBed">Printer bed</h3>
-        <p class="about tight">25 mm margin on every axis, so the tile sticks to the bed</p>
+        <h3 id="lBed">Cama de impresión</h3>
+        <p class="about tight">Margen de 25 mm en cada eje, para que el panel se pegue a la cama</p>
         <div class="keys" id="beds" role="group" aria-labelledby="lBed"></div>
         <div class="xyz">
           <div><label for="bx">X (mm)</label><input class="num" id="bx" type="number" inputmode="numeric" min="100" max="600" step="1"></div>
@@ -518,9 +669,9 @@ table.bt-modes{width:100%;border-collapse:collapse;font-size:16px;font-variant-n
       </div>
 
       <div class="psec">
-        <h3>Depth</h3>
+        <h3>Profundidad</h3>
         <div class="ctrl">
-          <div class="row"><label for="depth">Depth of the tile</label><output id="depthOut" for="depth"></output></div>
+          <div class="row"><label for="depth">Profundidad del panel</label><output id="depthOut" for="depth"></output></div>
           <input id="depth" type="range" step="1" min="40" max="100" value="100">
           <div class="scale"><span id="dMin"></span><span id="dMax"></span></div>
         </div>
@@ -529,123 +680,126 @@ table.bt-modes{width:100%;border-collapse:collapse;font-size:16px;font-variant-n
   </div>
 
   <section class="getbar" id="get" aria-label="Download">
-    <h2 class="gethead">What you are about to print</h2>
+    <p class="modtag"><span class="modtag-n">05</span> Descargas</p>
+    <h2 class="gethead">Lo que vas a imprimir</h2>
     <div class="getgrid">
       <div class="gcol">
-        <div class="lab" id="getWallT">Whole wall</div>
+        <div class="lab" id="getWallT">Muro completo</div>
         <div class="ros" id="estWall" aria-live="polite"></div>
         <div class="gbtn">
-          <button type="button" class="btn big" id="bZip" disabled>Download this wall (ZIP)</button>
+          <button type="button" class="btn big" id="bZip" disabled>Descargar este muro (ZIP)</button>
           <p class="note" id="getNote"></p>
         </div>
       </div>
       <div class="gcol one">
-        <div class="lab" id="getTileT">One tile</div>
+        <div class="lab" id="getTileT">Un panel</div>
         <div class="ros" id="estTile" aria-live="polite"></div>
         <div class="gbtn">
-          <button type="button" class="btn ghost" id="bStl" disabled>Download tile STL</button>
+          <button type="button" class="btn ghost" id="bStl" disabled>Descargar panel STL</button>
         </div>
       </div>
     </div>
     <p class="note" id="estNote"></p>
-    <p class="note">Prefer a ready-made set? The tiles for all three printer sizes, with the wall plans, are on <a href="https://www.printables.com/model/1887298-acoustic-diffuser-tiles-deep-and-blocks-sized-for" target="_blank" rel="noopener">Printables</a>.</p>
-    <p class="status" id="status" role="status" aria-live="polite">Starting...</p>
+    <p class="note">¿Prefieres un conjunto listo? Los paneles para las tres impresoras, con los planos de muro, están en <a href="https://www.printables.com/model/1887298-acoustic-diffuser-tiles-deep-and-blocks-sized-for" target="_blank" rel="noopener">Printables</a>.</p>
+    <p class="status" id="status" role="status" aria-live="polite">Partiendo...</p>
   </section>
 
-  <section class="gal plan" id="plan" aria-label="Wall plan">
+  <section class="gal plan" id="plan"
+    <p class="modtag"><span class="modtag-n">06</span> Plano del muro</p> aria-label="Plano del muro">
     <div class="gal-head">
-      <h2>Wall plan</h2>
-      <p>Seen from the room</p>
+      <h2>Plano del muro</h2>
+      <p>Visto desde la sala</p>
     </div>
     <div id="planBody"></div>
   </section>
 
-  <section class="gal learn" aria-label="Learn more">
+  <section class="gal learn"
+    <p class="modtag"><span class="modtag-n">07</span> Aprende mas</p> aria-label="Más información">
     <div class="gal-head">
-      <h2>Learn more</h2>
-      <p>What you see on this page, explained</p>
+      <h2>Más información</h2>
+      <p>Lo que ves en esta página, explicado</p>
     </div>
     <ul class="links">
-      <li><a href="https://en.wikipedia.org/wiki/Diffusion_(acoustics)" target="_blank" rel="noopener">Diffusion (acoustics) - Wikipedia</a><span>What diffusion is, and the quadratic residue (Schroeder) and 2D skyline designs.</span></li>
-      <li><a href="https://acousticstoday.org/wp-content/uploads/2019/10/A-BRIEF-HISTORY-OF-ROOM-ACOUSTIC-DIFFUSERS-Trevor-J.-Cox.pdf" target="_blank" rel="noopener">A Brief History of Room Acoustic Diffusers - Acoustics Today (T. J. Cox, P. D'Antonio)</a><span>Flat walls, absorbers and diffusers compared, with simple pictures.</span></li>
-      <li><a href="https://www.soundonsound.com/techniques/practical-acoustic-treatment-part-4" target="_blank" rel="noopener">Practical Acoustic Treatment, Part 4 - Sound On Sound</a><span>Early reflections, the wall behind you and quadratic residue panels in a home studio.</span></li>
-      <li><a href="https://www.soundonsound.com/techniques/room-improvement" target="_blank" rel="noopener">Room For Improvement - Sound On Sound</a><span>Reflection points, and why diffusers need some distance in small rooms.</span></li>
-      <li><a href="https://www.routledge.com/Acoustic-Absorbers-and-Diffusers-Theory-Design-and-Application/Cox-DAntonio/p/book/9781498740999" target="_blank" rel="noopener">Acoustic Absorbers and Diffusers, 3rd ed. - Cox and D'Antonio, CRC Press</a><span>Deeper reading: the textbook these formulas come from.</span></li>
+      <li><a href="https://en.wikipedia.org/wiki/Diffusion_(acoustics)" target="_blank" rel="noopener">Difusión (acústica) - Wikipedia</a><span>Qué es la difusión y los diseños de residuos cuadráticos (Schroeder) y skyline 2D.</span></li>
+      <li><a href="https://acousticstoday.org/wp-content/uploads/2019/10/A-BRIEF-HISTORY-OF-ROOM-ACOUSTIC-DIFFUSERS-Trevor-J.-Cox.pdf" target="_blank" rel="noopener">A Brief History of Room Acoustic Diffusers - Acoustics Today (T. J. Cox, P. D'Antonio)</a><span>Muros planos, absorbentes y difusores comparados, con dibujos sencillos.</span></li>
+      <li><a href="https://www.soundonsound.com/techniques/practical-acoustic-treatment-part-4" target="_blank" rel="noopener">Practical Acoustic Treatment, Part 4 - Sound On Sound</a><span>Reflexiones tempranas, el muro detrás de ti y paneles de residuos cuadráticos en un home studio.</span></li>
+      <li><a href="https://www.soundonsound.com/techniques/room-improvement" target="_blank" rel="noopener">Room For Improvement - Sound On Sound</a><span>Puntos de reflexión y por qué los difusores necesitan distancia en salas pequeñas.</span></li>
+      <li><a href="https://www.routledge.com/Acoustic-Absorbers-and-Diffusers-Theory-Design-and-Application/Cox-DAntonio/p/book/9781498740999" target="_blank" rel="noopener">Acoustic Absorbers and Diffusers, 3rd ed. - Cox and D'Antonio, CRC Press</a><span>Lectura más a fondo: el libro del que salen estas fórmulas.</span></li>
     </ul>
   </section>
   </div>
 
   <!-- ================================================================= BASS TRAPS tab -->
   <div id="paneBass" class="bass" role="tabpanel" aria-labelledby="tabBass" hidden>
-    <p class="credit"><strong>A trap for one room mode.</strong> A folded quarter-wave resonator, printed in blocks of 120 x 120 mm cells, each one tuned to a single mode of your room. It is a narrow absorber: it shortens the ringing of that one mode and does nothing for the other modes, the treble or flutter echo. For broadband bass, porous or membrane traps in the corners do more per kilogram of material; this is a narrow tool for one ringing mode. Every number on this page is <strong>calculated, not measured</strong>: nobody has printed these cells and measured them in a room yet. If you try one, we would like to hear your before and after results in <a href="https://github.com/Chronosauros/diffuser-generator/discussions" target="_blank" rel="noopener">GitHub Discussions</a>.</p>
+    <p class="credit"><strong>Una trampa para un modo de sala.</strong> Un resonador de cuarto de onda plegado, impreso en bloques de celdas de 120 x 120 mm, cada una afinada a un solo modo de tu sala. Es un absorbente estrecho: acorta el resonar de ese modo y no hace nada con los otros modos, con los agudos ni con el eco de aleteo. Para graves de banda ancha, las trampas porosas o de membrana en las esquinas rinden más por kilo de material; esta es una herramienta estrecha para un solo modo que resuena. Every number on this page is <strong>calculated, not measured</strong>: nadie ha impreso estas celdas y las ha medido en una sala. Si pruebas una, nos gustaría conocer tus resultados antes y después en <a href="https://github.com/Chronosauros/diffuser-generator/discussions" target="_blank" rel="noopener">GitHub Discussions</a>.</p>
 
     <div class="bt-steps" id="btSteps" role="group" aria-label="Steps">
-      <button type="button" class="on" data-step="btRoom">Room</button>
-      <button type="button" data-step="btModes">Pick a mode</button>
-      <button type="button" data-step="btPrint">Print</button>
+      <button type="button" class="on" data-step="btRoom">Sala</button>
+      <button type="button" data-step="btModes">Elige un modo</button>
+      <button type="button" data-step="btPrint">Imprimir</button>
     </div>
 
     <section class="gal bt-sec" id="btRoom" aria-labelledby="btRoomH">
-      <div class="gal-head"><h2 id="btRoomH">Room</h2><p>Your room decides which modes ring.</p></div>
+      <div class="gal-head"><h2 id="btRoomH">Sala</h2><p>Tu sala decide qué modos resuenan.</p></div>
       <div class="bt-roomgrid">
         <div class="bt-dims" role="group" aria-label="Room size in metres">
-          <div><label for="btL">Length (m)</label><input class="num" id="btL" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="4.0"></div>
-          <div><label for="btW">Width (m)</label><input class="num" id="btW" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="3.2"></div>
-          <div><label for="btH">Height (m)</label><input class="num" id="btH" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="2.6"></div>
+          <div><label for="btL">Largo (m)</label><input class="num" id="btL" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="4.0"></div>
+          <div><label for="btW">Ancho (m)</label><input class="num" id="btW" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="3.2"></div>
+          <div><label for="btH">Alto (m)</label><input class="num" id="btH" type="number" inputmode="decimal" step="0.1" min="2" max="12" value="2.6"></div>
         </div>
         <div>
-          <div class="bt-lab" id="btWallsL">Walls</div>
+          <div class="bt-lab" id="btWallsL">Muros</div>
           <div class="keys bt-alpha" id="btAlpha" role="group" aria-labelledby="btWallsL">
-            <button type="button" class="key" data-alpha="0.05" aria-pressed="false"><b>Lively</b><small>α 0.05</small></button>
-            <button type="button" class="key" data-alpha="0.1" aria-pressed="true"><b>Medium</b><small>α 0.10</small></button>
-            <button type="button" class="key" data-alpha="0.2" aria-pressed="false"><b>Damped</b><small>α 0.20</small></button>
+            <button type="button" class="key" data-alpha="0.05" aria-pressed="false"><b>Vivos</b><small>α 0.05</small></button>
+            <button type="button" class="key" data-alpha="0.1" aria-pressed="true"><b>Medios</b><small>α 0.10</small></button>
+            <button type="button" class="key" data-alpha="0.2" aria-pressed="false"><b>Amortiguados</b><small>α 0.20</small></button>
           </div>
-          <p class="note">You rarely know this, and it matters: in the example room eight cells give about 1.5x faster decay with lively or medium walls, and about 1.05x with damped walls.</p>
+          <p class="note">Rara vez conoces esto, y es importante: en la sala de ejemplo ocho celdas dan un decaimiento unas 1,5 veces más rápido con muros vivos o medios, y unas 1,05 veces con muros amortiguados.</p>
         </div>
       </div>
       <div id="btRoomErr" class="err" role="alert" hidden></div>
-      <div class="actions"><button type="button" class="btn ghost next" data-step="btModes">Next: pick a mode</button></div>
+      <div class="actions"><button type="button" class="btn ghost next" data-step="btModes">Siguiente: elige un modo</button></div>
     </section>
 
     <section class="gal bt-sec" id="btModes" aria-labelledby="btModesH">
-      <div class="gal-head"><h2 id="btModesH">Pick a mode</h2><p id="btModesAside">Room modes up to 120 Hz</p></div>
-      <p class="about">Per cell, tangential and oblique modes trapped at a corner or an edge gain most (in the 3D simulation about 1.7x more per cell than an axial mode at 4 cells), but the model is less exact there.</p>
+      <div class="gal-head"><h2 id="btModesH">Elige un modo</h2><p id="btModesAside">Modos de sala hasta 120 Hz</p></div>
+      <p class="about">Por celda, los modos tangenciales y oblicuos atrapados en una esquina o un borde aportan más (en la simulación 3D, unas 1,7 veces más por celda que un modo axial con 4 celdas), pero el modelo es menos exacto ahí.</p>
       <div class="bt-tablewrap">
         <table class="bt-modes" id="btTable">
-          <caption class="sr" style="position:absolute;left:-9999px">Room modes up to 120 Hz, with the calculated verdict for a trap tuned to each</caption>
-          <thead><tr><th scope="col">Frequency</th><th scope="col" class="hide-m">Indices</th><th scope="col" class="hide-m">Type</th><th scope="col">Decay now</th><th scope="col">Verdict</th><th scope="col" class="hide-m">Note</th></tr></thead>
+          <caption class="sr" style="position:absolute;left:-9999px">Modos de sala hasta 120 Hz, con el veredicto calculado para una trampa afinada a cada uno</caption>
+          <thead><tr><th scope="col">Frecuencia</th><th scope="col" class="hide-m">Índices</th><th scope="col" class="hide-m">Tipo</th><th scope="col">Decaimiento actual</th><th scope="col">Veredicto</th><th scope="col" class="hide-m">Nota</th></tr></thead>
           <tbody id="btRows"></tbody>
         </table>
       </div>
       <div class="bt-legend" id="btLegend"></div>
       <div class="bt-two">
         <div class="bt-cells">
-          <div class="hrow"><h3 id="btCellsH">Cells</h3><output id="btCellsFor"></output></div>
+          <div class="hrow"><h3 id="btCellsH">Celdas</h3><output id="btCellsFor"></output></div>
           <div class="bt-stepper" role="group" aria-labelledby="btCellsH">
             <button type="button" class="key" id="btMinus" aria-label="One cell fewer">-</button>
             <input class="num" id="btN" type="number" inputmode="numeric" min="1" max="16" step="1" value="8" aria-label="Number of cells">
             <button type="button" class="key" id="btPlus" aria-label="One cell more">+</button>
           </div>
-          <div class="scale"><span>1 cell</span><span>16 cells</span></div>
-          <p class="note">One cell is 120 x 120 mm on the wall and 50 - 150 mm deep. More cells help less and less: the decay levels off at about 1.5-1.75x faster however many cells.</p>
+          <div class="scale"><span>1 celda</span><span>16 celdas</span></div>
+          <p class="note">Una celda es de 120 x 120 mm sobre el muro y de 50 a 150 mm de profundidad. Más celdas ayudan cada vez menos: el decaimiento se estabiliza en unas 1,5 a 1,75 veces más rápido por muchas celdas que pongas.</p>
         </div>
-        <section class="bt-card" id="btCard" aria-label="What to expect" aria-live="polite"></section>
+        <section class="bt-card" id="btCard" aria-label="Qué esperar" aria-live="polite"></section>
       </div>
-      <div class="actions"><button type="button" class="btn ghost next" data-step="btPrint">Next: print</button></div>
+      <div class="actions"><button type="button" class="btn ghost next" data-step="btPrint">Siguiente: imprimir</button></div>
     </section>
 
     <section class="gal bt-sec" id="btPrint" aria-labelledby="btPrintH">
-      <div class="gal-head"><h2 id="btPrintH">Print</h2><p id="btPrintAside"></p></div>
+      <div class="gal-head"><h2 id="btPrintH">Imprimir</h2><p id="btPrintAside"></p></div>
       <div class="bt-two">
         <div>
-          <div class="viewport bt-view" id="btView"><div class="none" id="btViewNone">Pick a mode to see one block.</div></div>
-          <div class="viewbar"><p class="note">One block. Drag to orbit, scroll to zoom, right-drag to pan.</p><button type="button" class="key small" id="btReset">Reset view</button></div>
+          <div class="viewport bt-view" id="btView"><div class="none" id="btViewNone">Elige un modo para ver un bloque.</div></div>
+          <div class="viewbar"><p class="note">Un bloque. Arrastra para orbitar, rueda para acercar, botón derecho para desplazar.</p><button type="button" class="key small" id="btReset">Restablecer vista</button></div>
         </div>
         <div class="bt-side">
           <div class="bt-sum" id="btSum" aria-live="polite"></div>
           <div>
-            <h3 class="bed-h" id="btBedL">Printer bed</h3>
-            <p class="about tight">5 mm kept free on every axis.</p>
+            <h3 class="bed-h" id="btBedL">Cama de impresión</h3>
+            <p class="about tight">Se dejan 5 mm libres en cada eje.</p>
             <div class="keys" id="btBeds" role="group" aria-labelledby="btBedL"></div>
             <div class="xyz">
               <div><label for="btx">X (mm)</label><input class="num" id="btx" type="number" inputmode="numeric" min="100" max="600" step="1"></div>
@@ -655,10 +809,10 @@ table.bt-modes{width:100%;border-collapse:collapse;font-size:16px;font-variant-n
           </div>
           <div id="btFit" class="err" role="alert" hidden></div>
           <div class="bt-btns">
-            <button type="button" class="btn big" id="btZip" disabled>Download blocks (ZIP: STL + end caps)</button>
-            <p class="note" id="btZipNote">The ZIP holds the block STLs, the end-cap plate (one cap per cell, needed: it closes the channel) and a README with the print plan.</p>
-            <button type="button" class="btn ghost" id="btTune" disabled>Tuning inserts - only with a decay measurement</button>
-            <p class="note">Optional. Print them only if you can measure the decay before and after; without a measurement use the nominal end caps from the ZIP.</p>
+            <button type="button" class="btn big" id="btZip" disabled>Descargar bloques (ZIP: STL + tapas)</button>
+            <p class="note" id="btZipNote">El ZIP trae los STL de los bloques, la placa de tapas (una por celda, necesaria: cierra el canal) y un README con el plan de impresión.</p>
+            <button type="button" class="btn ghost" id="btTune" disabled>Insertos de afinación - solo con una medición de decaimiento</button>
+            <p class="note">Opcional. Imprímelos solo si puedes medir el decaimiento antes y después; sin medición usa las tapas nominales del ZIP.</p>
           </div>
           <p class="status" id="btStatus" role="status" aria-live="polite"></p>
         </div>
@@ -667,10 +821,10 @@ table.bt-modes{width:100%;border-collapse:collapse;font-size:16px;font-variant-n
   </div>
 
   <footer>
-    <p>Part of Soundblooms - the home of everything I make: <a href="https://soundblooms.com" target="_blank" rel="noopener">https://soundblooms.com</a></p>
-    <p>Open source under GPL-3.0. The code, the maths behind it and a place to report mistakes: <a href="https://github.com/Chronosauros/diffuser-generator" target="_blank" rel="noopener">https://github.com/Chronosauros/diffuser-generator</a></p>
-    <p>Geometry is built in your browser with <a href="https://github.com/elalish/manifold" target="_blank" rel="noopener">manifold-3d</a> and previewed with <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>. Made by <a href="https://github.com/Chronosauros" target="_blank" rel="noopener">Chronosaur</a>.</p>
-    <p>Set in Geom, copyright 2022 The Geom Project Authors (<a href="https://github.com/ThanosPoulakidas/Geom" target="_blank" rel="noopener">https://github.com/ThanosPoulakidas/Geom</a>), licensed under the SIL Open Font License 1.1 (<a href="https://openfontlicense.org" target="_blank" rel="noopener">https://openfontlicense.org</a>). Page design adapted from <a href="https://chronosauros.github.io/satyr3-grille-studio/" target="_blank" rel="noopener">Satyr 3 Grille Studio</a>.</p>
+    <p>Parte de Soundblooms - la casa de todo lo que hago: <a href="https://soundblooms.com" target="_blank" rel="noopener">https://soundblooms.com</a></p>
+    <p>Código abierto bajo GPL-3.0. El código, las matemáticas detrás y un lugar para reportar errores: <a href="https://github.com/Chronosauros/diffuser-generator" target="_blank" rel="noopener">https://github.com/Chronosauros/diffuser-generator</a></p>
+    <p>La geometría se construye en tu navegador con <a href="https://github.com/elalish/manifold" target="_blank" rel="noopener">manifold-3d</a> y se previsualiza con <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>. Made by <a href="https://github.com/Chronosauros" target="_blank" rel="noopener">Chronosaur</a>.</p>
+    <p>Compuesto en Geom, copyright 2022 The Geom Project Authors (<a href="https://github.com/ThanosPoulakidas/Geom" target="_blank" rel="noopener">https://github.com/ThanosPoulakidas/Geom</a>), con licencia SIL Open Font License 1.1 (<a href="https://openfontlicense.org" target="_blank" rel="noopener">https://openfontlicense.org</a>). Diseño de página adaptado de <a href="https://chronosauros.github.io/satyr3-grille-studio/" target="_blank" rel="noopener">Satyr 3 Grille Studio</a>.</p>
     <p class="footer-icons"><a href="https://github.com/Chronosauros" rel="noopener" target="_blank" aria-label="GitHub profile" title="GitHub"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a href="https://www.reddit.com/user/T6_8K/" rel="noopener" target="_blank" aria-label="Reddit profile" title="Reddit"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z"/></svg></a><a href="https://discord.gg/msgvnUG7js" rel="noopener" target="_blank" aria-label="Discord server" title="Discord"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a><a href="https://x.com/soundblooms" rel="noopener" target="_blank" aria-label="X profile" title="X"><svg viewBox="-2 -2 28 28" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a></p>
   </footer>
 </div>
@@ -2043,6 +2197,529 @@ function createBassGeometry(M, physics) {
 </script>
 
 <!-- ===================================================================== APP: UI, preview, STL / ZIP -->
+<script id="es-i18n">
+/* Capa de traduccion ES - Consultoria SSO (Alfacustica).
+   Los nucleos canonicos no se tocan; sus cadenas se traducen aqui,
+   en tiempo de render, con coincidencia exacta. */
+(function () {
+  var MAP = {
+"Diffusers": "Difusores",
+"Bass traps": "Trampas de graves",
+"Deep": "Profunda",
+"Blocks": "Bloques",
+"Custom": "Personalizado",
+"Series": "Serie",
+"Printer bed": "Cama de impresión",
+"Depth": "Profundidad",
+"Depth of the tile": "Profundidad del panel",
+"What you are about to print": "Lo que vas a imprimir",
+"Whole wall": "Muro completo",
+"One tile": "Un panel",
+"Download this wall (ZIP)": "Descargar este muro (ZIP)",
+"Download tile STL": "Descargar panel STL",
+"Starting...": "Partiendo...",
+"Wall plan": "Plano del muro",
+"Seen from the room": "Visto desde la sala",
+"Learn more": "Más información",
+"What you see on this page, explained": "Lo que ves en esta página, explicado",
+"See each tile of this wall": "Revisa cada panel de este muro",
+"How many tiles?": "¿Cuántos paneles?",
+"Loading...": "Cargando...",
+"Loading the 3D preview...": "Cargando la vista previa 3D...",
+"Loading the geometry engine...": "Cargando el motor de geometría...",
+"Reset view": "Restablecer vista",
+"Room": "Sala",
+"Print": "Imprimir",
+"Printing": "Imprimiendo",
+"Prints": "Impresiones",
+"Print settings": "Ajustes de impresión",
+"Print estimate": "Estimación de impresión",
+"What to print": "Qué imprimir",
+"How many to print": "Cuántos imprimir",
+"Tuning inserts": "Insertos de afinación",
+"Your wall": "Tu muro",
+"This wall": "Este muro",
+"What to expect": "Qué esperar",
+"Calculated effect for this case": "Efecto calculado para este caso",
+"What nobody has measured yet": "Lo que nadie ha medido todavía",
+"Try it and tell us": "Pruébalo y cuéntanos",
+"Cells and place": "Celdas y lugar",
+"Filament, whole wall": "Filamento, muro completo",
+"Print time, whole wall": "Tiempo de impresión, muro completo",
+"Mode decay": "Decaimiento del modo",
+"Print time": "Tiempo de impresión",
+"Mode": "Modo",
+"Peak": "Pico",
+"Place": "Lugar",
+"Cells": "Celdas",
+"Note": "Nota",
+"Verdict": "Veredicto",
+"Walls": "Muros",
+"Frequency": "Frecuencia",
+"Indices": "Índices",
+"Type": "Tipo",
+"Decay now": "Decaimiento actual",
+"Length": "Largo",
+"Width": "Ancho",
+"Height": "Alto",
+"Wells": "Pozos",
+"Assembly": "Montaje",
+"Block width": "Ancho del bloque",
+"Well width": "Ancho del pozo",
+"Corner": "Esquina",
+"Floor": "Piso",
+"Corner edge": "Borde de esquina",
+"Floor edge": "Borde del piso",
+"Wall": "Muro",
+"Mode decay (T60)": "Decaimiento del modo (T60)",
+"Frequency band": "Banda de frecuencia",
+"Design band": "Banda de diseño",
+"Tile size (W x H x D)": "Tamaño del panel (An x Al x P)",
+"Well depths (mm)": "Profundidades de los pozos (mm)",
+"Wells vertical. Number and arrow are on the back: arrow up.": "Pozos verticales. El número y la flecha están en la parte posterior: flecha hacia arriba.",
+"Number and arrow are on the back: arrow up.": "El número y la flecha están en la parte posterior: flecha hacia arriba.",
+"No effect": "Sin efecto",
+"Small effect": "Efecto pequeño",
+"Worth trying": "Vale la pena probar",
+"Some effect": "Algún efecto",
+"Makes sense": "Tiene sentido",
+"Just to try": "Solo para probar",
+"Great": "Grande",
+"Good": "Bueno",
+"Glossy ice": "Hielo brillante",
+"Glossy silver": "Plata brillante",
+"Matte sand": "Arena mate",
+"Matte terracotta": "Terracota mate",
+"Lively": "Vivos",
+"Medium": "Medios",
+"Damped": "Amortiguados",
+"Does not fit this bed.": "No cabe en esta cama.",
+"Enter a valid room first.": "Primero ingresa una sala válida.",
+"Enter a valid room above.": "Ingresa una sala válida arriba.",
+"Calculating the modes...": "Calculando los modos...",
+"Pick a mode first.": "Primero elige un modo.",
+"No place found for this number of cells.": "No se encontró lugar para este número de celdas.",
+"Out of range": "Fuera de rango",
+"Packing the ZIP...": "Empaquetando el ZIP...",
+"Building geometry...": "Construyendo la geometría...",
+"Building the tuning inserts plate...": "Construyendo la placa de insertos de afinación...",
+"Could not build the ZIP.": "No se pudo construir el ZIP.",
+"Could not build the set.": "No se pudo construir el conjunto.",
+"Could not build the tuning inserts.": "No se pudieron construir los insertos de afinación.",
+"Could not build this tile.": "No se pudo construir este panel.",
+"Something went wrong: ": "Algo salió mal: ",
+"The geometry engine did not load.": "No se cargó el motor de geometría.",
+"The end caps do not fit the printer bed.": "Las tapas no caben en la cama de impresión.",
+"This cell does not fit the printer bed.": "Esta celda no cabe en la cama de impresión.",
+"Estimating print time and filament...": "Estimando tiempo de impresión y filamento...",
+"3D preview unavailable (WebGL is not enabled in this browser). The downloads still work.": "Vista previa 3D no disponible (WebGL no está habilitado en este navegador). Las descargas funcionan igual.",
+"The 3D preview could not be loaded (three.js from the CDN). The downloads still work.": "No se pudo cargar la vista previa 3D (three.js desde el CDN). Las descargas funcionan igual.",
+"Soundblooms diffuser generator": "Generador de difusores acústicos",
+"Soundblooms acoustic diffuser - deep series (1D quadratic residue diffuser, N = 7)": "Difusor acústico - serie profunda (difusor de residuos cuadráticos 1D, N = 7)",
+"Soundblooms acoustic diffuser - block series (2D quadratic residue diffuser)": "Difusor acústico - serie de bloques (difusor de residuos cuadráticos 2D)",
+"Soundblooms bass trap - a folded quarter-wave resonator tuned to one room mode": "Trampa de graves - resonador de cuarto de onda plegado afinado a un modo de sala",
+"Tuning inserts of the Soundblooms bass trap cell for ": "Insertos de afinación de la celda de trampa de graves para ",
+"Generated by the Soundblooms Diffuser Generator, bass traps. Folder: ": "Generado por el Generador de Difusores Acústicos, trampas de graves. Carpeta: ",
+"How much sense": "Cuánto sentido",
+"Custom colour": "Color personalizado",
+"Custom colour as hex": "Color personalizado en hexadecimal",
+"Pick your own colour": "Elige tu propio color",
+"your own bed": "tu propia cama",
+"Design band about": "Banda de diseño desde unos",
+"Design band (calculated, not measured)": "Banda de diseño (calculada, no medida)",
+"This is a calculated design band, not a measurement.": "Esta es una banda de diseño calculada, no una medición.",
+"Soundblooms diffuser wall plan, seen from the room": "Plano de muro de difusores, visto desde la sala",
+"Made with the Soundblooms Diffuser Generator - https://soundblooms.com": "Hecho con el Generador de Difusores Acústicos - https://soundblooms.com",
+"lying on its back": "acostado sobre su espalda",
+"standing on its end": "de pie sobre su base",
+"unknown error": "error desconocido",
+"Could not build the geometry: ": "No se pudo construir la geometría: ",
+"Could not build the set: ": "No se pudo construir el conjunto: ",
+"Could not estimate the print: ": "No se pudo estimar la impresión: ",
+"Could not load the geometry engine (manifold-3d from the CDN): ": "No se pudo cargar el motor de geometría (manifold-3d desde el CDN): ",
+"Could not load three.js from the CDN: ": "No se pudo cargar three.js desde el CDN: ",
+"Print: ": "Imprimir: ",
+". Check your connection and reload.": ". Revisa tu conexión y recarga.",
+"Whole wall: 1 tile": "Muro completo: 1 panel",
+"1 tile": "1 panel",
+"Length (m)": "Largo (m)",
+"Width (m)": "Ancho (m)",
+"Height (m)": "Alto (m)",
+"Diffuser Generator": "Generador de Difusores Acústicos QRD",
+"Soundblooms Diffuser Generator": "Generador de Difusores Acústicos QRD",
+"Tile 1 on screen": "Panel 1 en pantalla",
+"Tile ": "Panel ",
+"Download tile 1 only (STL)": "Descargar solo el panel 1 (STL)",
+"Download tile ${state.tile} only (STL)": "Descargar solo el panel ${state.tile} (STL)",
+"Design band about ": "Banda de diseño desde unos ",
+"Download panel 1 only (STL)": "Descargar solo el panel 1 (STL)",
+"Generador de Difusores Acústicos": "Generador de Difusores Acústicos QRD",
+"Working diffusers, not wall art.": "Difusores que funcionan, no adorno de muro.",
+"Every well depth comes from the quadratic residue sequence": "Cada profundidad de pozo sale de la secuencia de residuos cuadráticos",
+"so a tile spreads a reflection into many directions and arrival times": "de modo que un panel reparte una reflexión en muchas direcciones y tiempos de llegada",
+"They do not absorb sound and do nothing for bass, room modes or loudness.": "No absorben sonido y no hacen nada con los graves, los modos de sala ni el nivel de presión.",
+"Deep tiles treat a room from about their design frequency up, once the wall is wide enough": "Los paneles profundos tratan la sala desde su frecuencia de diseño hacia arriba, siempre que el muro sea suficientemente ancho",
+"block tiles are a shallow 2D diffuser for upper mids and treble": "los bloques son un difusor 2D superficial para medios agudos y agudos",
+"Formulas after T. J. Cox and P. D'Antonio,": "Fórmulas según T. J. Cox y P. D'Antonio,",
+"The band shown is design intent, calculated from the shape of the tiles, not a measurement.": "La banda mostrada es intención de diseño, calculada a partir de la forma de los paneles, no una medición.",
+"The ready-made tiles for the A1 mini, MK4 / Core One and P1S / X1 are also on": "Los paneles listos para la A1 mini, la MK4 / Core One y la P1S / X1 también están en",
+"You choose the whole wall, not one tile. Taller column, happier face: the wall makes more sense.": "Eliges el muro completo, no un panel. Columna alta, mejor resultado: el muro tiene más sentido.",
+"Placement guidance, not a measurement. Diffusers work best a little away from you; very close to your ears they help less.": "Orientación de ubicación, no una medición. Los difusores funcionan mejor a cierta distancia de ti; muy cerca de tus oídos ayudan menos.",
+"25 mm margin on every axis, so the tile sticks to the bed": "Margen de 25 mm en cada eje, para que el panel se pegue a la cama",
+"Prefer a ready-made set? The tiles for all three printer sizes, with the wall plans, are on": "¿Prefieres un conjunto listo? Los paneles para las tres impresoras, con los planos de muro, están en",
+"Drag to orbit, scroll to zoom, right-drag to pan.": "Arrastra para orbitar, rueda para acercar, botón derecho para desplazar.",
+"One block. Drag to orbit, scroll to zoom, right-drag to pan.": "Un bloque. Arrastra para orbitar, rueda para acercar, botón derecho para desplazar.",
+"Diffusion (acoustics) - Wikipedia": "Difusión (acústica) - Wikipedia",
+"What diffusion is, and the quadratic residue (Schroeder) and 2D skyline designs.": "Qué es la difusión y los diseños de residuos cuadráticos (Schroeder) y skyline 2D.",
+"Flat walls, absorbers and diffusers compared, with simple pictures.": "Muros planos, absorbentes y difusores comparados, con dibujos sencillos.",
+"Early reflections, the wall behind you and quadratic residue panels in a home studio.": "Reflexiones tempranas, el muro detrás de ti y paneles de residuos cuadráticos en un home studio.",
+"Reflection points, and why diffusers need some distance in small rooms.": "Puntos de reflexión y por qué los difusores necesitan distancia en salas pequeñas.",
+"Deeper reading: the textbook these formulas come from.": "Lectura más a fondo: el libro del que salen estas fórmulas.",
+"A trap for one room mode.": "Una trampa para un modo de sala.",
+"A folded quarter-wave resonator, printed in blocks of 120 x 120 mm cells, each one tuned to a single mode of your room. It is a narrow absorber: it shortens the": "Un resonador de cuarto de onda plegado, impreso en bloques de celdas de 120 x 120 mm, cada una afinada a un solo modo de tu sala. Es un absorbente estrecho: acorta el",
+": nobody has printed these cells and measured them in a room yet. If you try one, we would like to hear your before and after results in": ": nadie ha impreso estas celdas y las ha medido en una sala. Si pruebas una, nos gustaría conocer tus resultados antes y después en",
+"Your room decides which modes ring.": "Tu sala decide qué modos resuenan.",
+"One cell is 120 x 120 mm on the wall and 50 - 150 mm deep. More cells help less and less: the decay levels off at about 1.5-1.75x faster however many cells.": "Una celda es de 120 x 120 mm sobre el muro y de 50 a 150 mm de profundidad. Más celdas ayudan cada vez menos: el decaimiento se estabiliza en unas 1,5 a 1,75 veces más rápido por muchas celdas que pongas.",
+"Pick a mode to see one block.": "Elige un modo para ver un bloque.",
+"5 mm kept free on every axis.": "Se dejan 5 mm libres en cada eje.",
+"Download blocks (ZIP: STL + end caps)": "Descargar bloques (ZIP: STL + tapas)",
+"The ZIP holds the block STLs, the end-cap plate (one cap per cell, needed: it closes the channel) and a README with the print plan.": "El ZIP trae los STL de los bloques, la placa de tapas (una por celda, necesaria: cierra el canal) y un README con el plan de impresión.",
+"Tuning inserts - only with a decay measurement": "Insertos de afinación - solo con una medición de decaimiento",
+"Optional. Print them only if you can measure the decay before and after; without a measurement use the nominal end caps from the ZIP.": "Opcional. Imprímelos solo si puedes medir el decaimiento antes y después; sin medición usa las tapas nominales del ZIP.",
+"Part of Soundblooms - the home of everything I make:": "Parte de Soundblooms - la casa de todo lo que hago:",
+"Open source under GPL-3.0. The code, the maths behind it and a place to report mistakes:": "Código abierto bajo GPL-3.0. El código, las matemáticas detrás y un lugar para reportar errores:",
+"Geometry is built in your browser with": "La geometría se construye en tu navegador con",
+"and previewed with": "y se previsualiza con",
+"Set in Geom, copyright 2022 The Geom Project Authors (": "Compuesto en Geom, copyright 2022 The Geom Project Authors (",
+"), licensed under the SIL Open Font License 1.1 (": "), con licencia SIL Open Font License 1.1 (",
+"Design intent, calculated from the shape of the tile, not a measurement.": "Intención de diseño, calculada a partir de la forma del panel, no una medición.",
+"Design intent, calculated from the shape of the tile and checked with a 2D simulation (BEM check), not a measurement.": "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (comprobación BEM), no una medición.",
+"The low end comes from the ": "El límite inferior viene del ",
+"The top comes from the ": "El límite superior viene del ",
+" mm well width; around ": " mm de ancho de pozo; alrededor de ",
+" mm deepest well.": " mm de pozo más profundo.",
+" mm tallest block, the top from the ": " mm de bloque más alto, y el superior del ",
+" mm block width.": " mm de ancho de bloque.",
+"The band stops at 7 x the design frequency, where the tile reflects like a flat panel.": "La banda termina en 7 veces la frecuencia de diseño, donde el panel refleja como un panel plano.",
+" (7 x the design frequency) the tile reflects like a flat panel.": " (7 veces la frecuencia de diseño) el panel refleja como un panel plano.",
+"Block tiles work on upper mids and treble only.": "Los bloques solo funcionan en medios agudos y agudos.",
+"Depth (deepest well): ": "Profundidad (pozo más profundo): ",
+" mm, well pitch ": " mm, paso de pozo ",
+" mm, well width ": " mm, ancho de pozo ",
+"Depth (tallest block): ": "Profundidad (bloque más alto): ",
+" mm, base ": " mm, base ",
+" blocks of ": " bloques de ",
+"Scatters from about ": "Dispersa desde unos ",
+"A wider wall reaches lower: from ": "Un muro más ancho llega más abajo: desde ",
+" cm wide it covers the design band from about ": " cm de ancho cubre la banda de diseño desde unos ",
+" cm wide (": " cm de ancho (",
+" tiles across) it covers the design band from about ": " paneles de ancho) cubre la banda de diseño desde unos ",
+"Seen from the room, left to right, top to bottom: ": "Visto desde la sala, de izquierda a derecha, de arriba abajo: ",
+"Files: one STL per tile number (": "Archivos: un STL por número de panel (",
+"ZIP: the STL of tile 1, the wall plan and a README.": "ZIP: el STL del panel 1, el plano del muro y un README.",
+"Wall plan: see wall-plan.svg (seen from the room, numbers and order of the tiles).": "Plano del muro: ver wall-plan.svg (visto desde la sala, números y orden de los paneles).",
+"This wall (calculated, not measured)": "Este muro (calculado, no medido)",
+"Approximate, Bambu P1S with the profiles in the ZIP; A1 mini similar, MK4 / Core One slower.": "Aproximado, Bambu P1S con los perfiles del ZIP; A1 mini similar, MK4 / Core One más lento.",
+"The estimate is a fit to a few sliced parts: only for a Bambu Lab P1S, 0.4 mm nozzle, PLA; approximate.": "La estimación es un ajuste a pocas piezas laminadas: solo para Bambu Lab P1S, boquilla 0,4 mm, PLA; aproximada.",
+"Bambu Lab P1S profile of the estimate: PLA, 0.4 mm nozzle, layer 0.20 mm, 3 walls, 15 % infill, no supports, chamber fan off. Print every part in the orientation of its STL, the block with its 120 mm face standing on its side.": "Perfil Bambu Lab P1S de la estimación: PLA, boquilla 0,4 mm, capa 0,20 mm, 3 perímetros, relleno 15 %, sin soportes, ventilador de cámara apagado. Imprime cada pieza en la orientación de su STL, el bloque con su cara de 120 mm de pie sobre el canto.",
+"Print each tile lying on its back, no supports. Tested profile: 0.20 mm layers, 2 walls, lightning 15 % infill (Bambu Lab P1S, 0.4 mm nozzle, PLA).": "Imprime cada panel acostado sobre su espalda, sin soportes. Perfil probado: capas de 0,20 mm, 2 perímetros, relleno lightning 15 % (Bambu Lab P1S, boquilla 0,4 mm, PLA).",
+"Print each tile standing on its end, wells vertical, no supports. Tested profile: 0.28 mm layers, 4 walls, gyroid 10 % infill (Bambu Lab P1S, 0.4 mm nozzle, PLA).": "Imprime cada panel de pie sobre su base, con los pozos verticales, sin soportes. Perfil probado: capas de 0,28 mm, 4 perímetros, relleno gyroid 10 % (Bambu Lab P1S, boquilla 0,4 mm, PLA).",
+"Mounting: the back is flat; removable picture-hanging adhesive strips work on a clean, painted, dry wall.": "Montaje: la parte posterior es plana; tiras adhesivas removibles de colgar cuadros funcionan sobre un muro limpio, pintado y seco.",
+"One cell alone is practically inaudible.": "Una celda sola es prácticamente inaudible.",
+"Calculated, not measured.": "Calculado, no medido.",
+"It only works in a room that lets the mode ring: if the walls already damp the mode faster than the cell rings, it does nothing.": "Solo funciona en una sala que deje resonar el modo: si los muros ya amortiguan el modo más rápido de lo que resuena la celda, no hace nada.",
+"Your walls already damp this mode faster than the cell rings - a trap here would not shorten the decay.": "Tus muros ya amortiguan este modo más rápido de lo que resuena la celda: una trampa aquí no acortaría el decaimiento.",
+"More cells help less and less: the model and the 3D simulation level off at about 1.5-1.75x faster decay however many cells.": "Más celdas ayudan cada vez menos: el modelo y la simulación 3D se estabilizan en unas 1,5 a 1,75 veces más rápido de decaimiento, por muchas celdas que pongas.",
+"The result depends on things nobody has measured.": "El resultado depende de cosas que nadie ha medido.",
+"the result depends on things nobody has measured (the walls already damp the mode almost as fast as the cell works, an oblique mode at alpha 0.10 or more, or alpha 0.15 or more).": "el resultado depende de cosas que nadie ha medido (los muros ya amortiguan el modo casi tan rápido como funciona la celda, un modo oblicuo con alpha 0,10 o más, o alpha 0,15 o más).",
+"the single-mode model is less exact here": "el modelo de un solo modo es menos exacto aquí",
+"The cells (120 x 120 mm each) sit in one tight patch around that place: the cells nearest to it on the 120 mm grid of the walls (": "Las celdas (120 x 120 mm cada una) se sitúan en una zona compacta alrededor de ese lugar: las celdas más cercanas a él en la grilla de 120 mm de los muros (",
+"in all).": " en total).",
+"It only works in a room that lets the mode ring": "Solo funciona en una sala que deje resonar el modo",
+"For broadband bass, porous or membrane traps in the corners do more per kilogram of material; this is a narrow tool for one ringing mode.": "Para graves de banda ancha, las trampas porosas o de membrana en las esquinas rinden más por kilo de material; esta es una herramienta estrecha para un solo modo que resuena.",
+"This is an experiment you can join: measure the decay of this mode before and after and tell us what you got:": "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después y cuéntanos qué obtuviste:",
+"A small patch: it scatters one spot, mostly in the upper part of the band.": "Una zona pequeña: dispersa un punto, sobre todo en la parte alta de la banda.",
+"Covers the reflection area behind or beside one listening position.": "Cubre la zona de reflexión detrás o al lado de una posición de escucha.",
+"Wide enough to treat one first-reflection point, or the wall behind one listening seat.": "Suficientemente ancho para tratar un punto de primera reflexión, o el muro detrás de una butaca de escucha.",
+"One tile to try fit, finish and colour. Too small to change how a room sounds.": "Un panel para probar ajuste, terminación y color. Demasiado pequeño para cambiar cómo suena una sala.",
+"The resistance of the printed channel is the biggest unknown, about 2x either way. It can shrink the effect and, with wider slots, even reverse it - that is why this tool only makes 6 mm slots. Only a measurement settles it.": "La resistencia del canal impreso es la mayor incógnita, con un factor de ~2 en cualquier sentido. Puede reducir el efecto y, con ranuras más anchas, incluso invertirlo: por eso esta herramienta solo hace ranuras de 6 mm. Solo una medición lo resuelve.",
+"More cells help less and less": "Más celdas ayudan cada vez menos",
+"Pick a mode in the table to see what to expect.": "Elige un modo en la tabla para ver qué esperar.",
+"None of the modes of this room can be treated: they are below 35 Hz or need a cell deeper than 150 mm.": "Ninguno de los modos de esta sala se puede tratar: están por debajo de 35 Hz o necesitan una celda más profunda que 150 mm.",
+"No place on the walls of this room holds ": "Ningún lugar en los muros de esta sala aloja ",
+" for this mode, or the model has no solution there. Try fewer cells or another mode.": " para este modo, o el modelo no tiene solución ahí. Prueba con menos celdas u otro modo.",
+"Pick a bigger bed or a mode with a shallower cell (a higher mode).": "Elige una cama más grande o un modo con una celda más somera (un modo más alto).",
+"1. Push one end cap into the window in the side wall at the end of every channel.": "1. Inserta una tapa en la ventana de la pared lateral, al final de cada canal.",
+"2. Seal the flange of the cap with foam or aluminium tape. This is untested: a leak raises the tuning frequency of the cell.": "2. Sella la pestaña de la tapa con espuma o cinta de aluminio. Esto no está probado: una fuga sube la frecuencia de afinación de la celda.",
+"3. Fix the blocks on the wall at the place above, the face with the slit toward the room.": "3. Fija los bloques en el muro en el lugar indicado arriba, con la cara de la ranura hacia la sala.",
+"The verdict is what the model gives with up to 8 cells at the best place, at ": "El veredicto es lo que da el modelo con hasta 8 celdas en el mejor lugar, con ",
+": worth trying from 1.25x faster decay, small effect from 1.08x. The small line shows that best case and its print time on the bed chosen below. It does not say you will hear it. Modes below ": ": vale la pena probar desde 1,25 veces más rápido de decaimiento, efecto pequeño desde 1,08 veces. La línea pequeña muestra ese mejor caso y su tiempo de impresión en la cama elegida abajo. No significa que lo vas a oír. Los modos por debajo de ",
+" Hz or needing a cell deeper than 150 mm are out of range. Calculated, not measured.": " Hz o que necesiten una celda más profunda que 150 mm quedan fuera de rango. Calculado, no medido.",
+"base decay above 0.8 of the cell width": "decaimiento base por encima de 0,8 del ancho de celda",
+"can be off by 25 % or more (up to about 40 % against the 3D simulation)": "puede desviarse un 25 % o más (hasta cerca del 40 % frente a la simulación 3D)",
+"corner with a neighbouring mode within 10 % of the cell frequency": "esquina con un modo vecino dentro del 10 % de la frecuencia de celda",
+"tangential or oblique mode with 4 or more cells": "modo tangencial u oblicuo con 4 celdas o más",
+"the walls already damp this mode": "los muros ya amortiguan este modo",
+"decay is not shortened": "el decaimiento no se acorta",
+"practically no change in decay": "prácticamente sin cambio en el decaimiento",
+"no useful change in decay": "ningún cambio útil en el decaimiento",
+"no place with a solution": "sin lugar con solución",
+"see the Print step": "ver el paso de impresión",
+"no tuning inserts for this cell": "no hay insertos de afinación para esta celda",
+"the geometry came out empty for these settings": "la geometría salió vacía con estos ajustes",
+"the bed is too low: a cell is ": "la cama es demasiado baja: una celda es de ",
+" mm deep, more than the ": " mm de profundidad, más que los ",
+" mm tall, the bed allows ": " mm de alto, la cama permite ",
+"the longest insert is ": "el inserto más largo es de ",
+"the number of cells must be a whole number of at least 1": "el número de celdas debe ser un entero de al menos 1",
+"floor corner (the three walls meet)": "esquina del piso (se encuentran los tres muros)",
+"floor edge under the ": "borde del piso bajo el ",
+"middle of the floor (": "en el centro del piso (",
+"middle of the ": "en el centro del ",
+" m wall, middle of the ": " m de muro, en el centro del ",
+"Calculated, not measured. Nobody has printed these cells and measured them in a room yet: every number below comes from a model, described with its limits at": "Calculado, no medido. Nadie ha impreso estas celdas y las ha medido en una sala: todas las cifras siguientes salen de un modelo, descrito con sus límites en",
+"How this is calculated": "Cómo se calcula esto",
+"One of each ": "Uno de cada ",
+" of each tile: ": " de cada panel: ",
+"Print one of each tile: ": "Imprimir uno de cada panel: ",
+"Whole wall: ": "Muro completo: ",
+"Mode decay (T60) at ": "Decaimiento del modo (T60) con ",
+"Peak of the mode: ": "Pico del modo: ",
+". Blocks: ": ". Bloques: ",
+". End caps: ": ". Tapas: ",
+"End caps: ": "Tapas: ",
+"Total, about: ": "Total, unos: ",
+" PLA (blocks ": " PLA (bloques ",
+"Printer bed: ": "Cama de impresión: ",
+" mm, 5 mm kept free on every axis.": " mm, se dejan 5 mm libres en cada eje.",
+" on a frequency axis from 100 Hz to 20 kHz": " en un eje de frecuencia de 100 Hz a 20 kHz",
+"Design band from ": "Banda de diseño desde ",
+"Design band (design intent: calculated, not measured)": "Banda de diseño (intención de diseño: calculada, no medida)",
+"Build the ZIP": "Construir el ZIP",
+"You rarely know this, and it matters: in the example room eight cells give about 1.5x faster decay with lively or medium walls, and about 1.05x with damped walls.": "Rara vez conoces esto, y es importante: en la sala de ejemplo ocho celdas dan un decaimiento unas 1,5 veces más rápido con muros vivos o medios, y unas 1,05 veces con muros amortiguados.",
+"the wall plan and a README": "el plano del muro y un README",
+"with how many of each to print": "con cuántos de cada para imprimir",
+"one per tile number": "uno por número de panel",
+"the wall plan": "el plano del muro",
+"the design band from about": "la banda de diseño desde unos",
+"A wider wall reaches lower: from about": "Un muro más ancho llega más abajo: desde unos",
+"the low end comes from the": "el límite inferior viene del",
+"The low end comes from the": "El límite inferior viene del",
+"Design intent, calculated from the shape of el panel and checked with a 2D simulation (BEM check), not a measurement.": "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (comprobación BEM), no una medición.",
+"Aproximado, Bambu P1S con los perfiles del ZIP; A1 mini similar, MK4 / Core One mas lento.": "Aproximado, Bambu P1S con los perfiles del ZIP; A1 mini similar, MK4 / Core One más lento.",
+"instead of sending it back as one echo": "en vez de devolverla como un solo eco",
+"They do not absorb sound and do nothing for bass, room modes or loudness": "No absorben sonido y no hacen nada con los graves, los modos de sala ni el nivel de presión",
+"for a trap tuned to one room mode, see the": "para una trampa afinada a un modo de sala, mira la",
+"1D QRD, wells with fins": "QRD 1D, pozos con aletas",
+"2D QRD, shallow": "QRD 2D, superficial",
+"Room modes up to 120 Hz": "Modos de sala hasta 120 Hz",
+"Per cell, tangential and oblique modes trapped at a corner or an edge gain most": "Por celda, los modos tangenciales y oblicuos atrapados en una esquina o un borde aportan más",
+"(in the 3D simulation about 1.7x more per cell than an axial mode at 4 cells), but the model is less exact there.": "(en la simulación 3D, unas 1,7 veces más por celda que un modo axial con 4 celdas), pero el modelo es menos exacto ahí.",
+"but the model is less exact there.": "pero el modelo es menos exacto ahí.",
+"close together, tangential or oblique modes with 4 or more cells": "muy juntos, modos tangenciales u oblicuos con 4 celdas o más",
+"a corner next to another mode": "una esquina junto a otro modo",
+"the numbers ": "las cifras ",
+"One block, repeated ": "Un bloque, repetido ",
+"About figures for a Bambu Lab P1S, 0.4 mm nozzle, PLA; the three numbers above are blocks only.": "Cifras aproximadas para una Bambu Lab P1S, boquilla 0,4 mm, PLA; los tres números de arriba son solo de bloques.",
+" (one per cell) on ": " (una por celda) en ",
+" plate, about ": " placa, unos ",
+"This is an experiment you can join: measure the decay of this mode before and after (REW and a measurement microphone) and tell us what you got in": "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (REW y un micrófono de medición) y cuéntanos qué obtuviste en",
+"acorta el ringing of that one mode and does nothing for the other modes, the treble or flutter echo.": "acorta el resonar de ese modo y no hace nada con los otros modos, con los agudos ni con el eco de aleteo.",
+"Every number on this page is calculated, not measured:": "Todos los números de esta página son calculados, no medidos:",
+"Page design adapted from": "Diseño de página adaptado de",
+"Next: pick a mode": "Siguiente: elige un modo",
+"Pick a mode": "Elige un modo",
+"Next: print": "Siguiente: imprimir",
+"One block, repeated": "Un bloque, repetido",
+"Hz, 8 cells": "Hz, 8 celdas",
+"cell, repeated": "celda, repetida",
+"This is an experiment you can join: measure the decay of this mode before and after (": "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (",
+" and a measurement microphone) and tell us what you got in": " y un micrófono de medición) y cuéntanos qué obtuviste en",
+"Design intent, calculated from the shape of the tile and checked with a 2D simulation (": "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (",
+"), not a measurement.": "), no una medición.",
+"BEM check": "comprobación BEM",
+"with the calculated verdict for a trap tuned to each": "con el veredicto calculado para una trampa afinada a cada uno",
+" tile, wall of ": " panel, muro de ",
+"tile, wall of ": "panel, muro de ",
+" mm per tile), ": " mm por panel), ",
+"Deep series": "Serie profunda",
+"Tile ${state.tile} on screen": "Panel ${state.tile} en pantalla",
+"tile ${state.tile} of ": "panel ${state.tile} de ",
+"tile ${t} of ": "panel ${t} de ",
+"tiles": "paneles",
+"tile": "panel",
+"cells": "celdas",
+"cell": "celda",
+"files": "archivos",
+"file": "archivo",
+"wells": "pozos",
+"prints": "impresiones",
+"printing": "imprimiendo",
+"blocks": "bloques",
+"block": "bloque",
+"modes": "modos",
+"mode": "modo",
+"rooms": "salas",
+"room": "sala",
+"walls": "muros",
+"wall": "muro",
+"depth": "profundidad",
+"band": "banda",
+"peak": "pico",
+"place": "lugar",
+"note": "nota",
+"print": "imprimir"
+};
+  var KEYS = Object.keys(MAP).filter(function (k) { return k.indexOf(" ") !== -1; })
+                  .sort(function (a, b) { return b.length - a.length; });
+  function tr(s) {
+    if (typeof s !== "string" || !s) return s;
+    if (MAP[s] !== undefined) return MAP[s];
+    var out = s;
+    for (var i = 0; i < KEYS.length; i++) {
+      var k = KEYS[i];
+      if (out.indexOf(k) !== -1) out = out.split(k).join(MAP[k]);
+    }
+    return out;
+  }
+  window.__esTr = tr;
+  window.__esTr = tr;
+  /* Red de seguridad: el render inserta fragmentos de plantilla en
+     varios pasos; esta pasada final normaliza lo que quedo en ingles
+     por conectores sueltos, sin tocar nombres propios. */
+  var CLEAN = [
+    [/\bthe wall plan\b/g, "el plano del muro"],
+    [/\bone per tile number\b/g, "uno por numero de panel"],
+    [/\bhow many of each to print\b/g, "cuantos de cada para imprimir"],
+    [/\bwith how many of each\b/g, "con cuantos de cada"],
+    [/\bthe design band from about\b/g, "la banda de diseno desde unos"],
+    [/\bDesign intent, calculated from the shape of the tile and checked with a 2D simulation \(BEM check\), not a measurement\./g,
+      "Intencion de diseno, calculada a partir de la forma del panel y verificada con una simulacion 2D (comprobacion BEM), no una medicion."],
+    [/\bDesign intent, calculated from the shape of the tile, not a measurement\./g,
+      "Intencion de diseno, calculada a partir de la forma del panel, no una medicion."],
+    [/\bApproximate, Bambu P1S with the profiles in the ZIP; A1 mini similar, MK4 \/ Core One slower\./g,
+      "Aproximado, Bambu P1S con los perfiles del ZIP; A1 mini similar, MK4 / Core One mas lento."],
+    [/\bTile (\d+) on screen\b/g, "Panel $1 en pantalla"],
+    [/\bDownload tile (\d+) only \(STL\)\b/g, "Descargar solo el panel $1 (STL)"],
+    [/\bWhole wall: (\d+) tiles?\b/g, "Muro completo: $1 paneles"],
+    [/\bthe tiles of this wall\b/g, "los paneles de este muro"],
+    [/\bEach tile is\b/g, "Cada panel es"],
+    [/\bnot measured\b/g, "no medido"],
+    [/\bnot measured\./g, "no medido."],
+    [/\bcalculated, not measured\b/g, "calculado, no medido"],
+    [/\bto print\b/g, "para imprimir"],
+    [/\bto see\b/g, "para ver"],
+    [/\bto try\b/g, "para probar"],
+    [/\bto build\b/g, "para construir"],
+    [/\bto print\b/g, "para imprimir"],
+    [/\bfrom about\b/g, "desde unos"],
+    [/\bout of range\b/g, "fuera de rango"],
+    [/\bhow much sense\b/g, "cuanto sentido"],
+    [/\bsee each tile of this wall\b/g, "revisa cada panel de este muro"],
+    [/\bPick a mode\b/g, "Elige un modo"],
+    [/\bNext: pick a mode\b/g, "Siguiente: elige un modo"],
+    [/\bNext: print\b/g, "Siguiente: imprimir"],
+    [/\babout (\d)/g, "unos $1"],
+    [/\bwith (\d+) cells\b/g, "con $1 celdas"],
+    [/\bwith (\d+) cell\b/g, "con $1 celda"],
+    [/\bworth trying about\b/g, "vale la pena probar: unos"],
+    [/\bShape of the tile\b/g, "forma del panel"],
+    [/\bthe shape of el panel\b/g, "la forma del panel"],
+    [/\bDownload panel (\d+) only \(STL\)\b/g, "Descargar solo el panel $1 (STL)"],
+    [/\bmas lento\b/g, "más lento"],
+    [/\bIntencion de diseno\b/g, "Intención de diseño"],
+    [/\bdiseno\b/g, "diseño"],
+    [/\bmedicion\b/g, "medición"],
+    [/\bcomprobacion\b/g, "comprobación"],
+    [/\bsimulacion\b/g, "simulación"],
+    [/\bDesign intent, calculated from the shape of the tile and checked with a 2D simulation \(BEM check\), not a measurement\./g,
+      "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (comprobación BEM), no una medición."],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after \(REW and a measurement microphone\) and tell us what you got in/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (REW y un micrófono de medición) y cuéntanos qué obtuviste en"],
+    [/\bOne block, repeated/g, "Un bloque, repetido"],
+    [/\bDownload tile 1 only \(STL\)/g, "Descargar solo el panel 1 (STL)"],
+    [/\bDownload panel 1 only \(STL\)/g, "Descargar solo el panel 1 (STL)"],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after and tell us what you got:/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después y cuéntanos qué obtuviste:"],
+    [/\bProfunda series\b/g, "Serie profunda"],
+    [/\bDeep series\b/g, "Serie profunda"],
+    [/\btile (\d+) of (\d+)\b/g, "panel $1 de $2"],
+    [/\bwith the calculated verdict for a trap tuned to each\b/g, "con el veredicto calculado para una trampa afinada a cada uno"],
+    [/\b8 blocks\b/g, "8 bloques"],
+    [/\bblocks\b/g, "bloques"],
+    [/\bm wall\b/g, " m de muro"],
+    [/\bDesign intent, calculated from the shape of the tile and checked with a 2D simulation \(BEM check\), not a measurement\./g,
+      "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (comprobación BEM), no una medición."],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after \(REW and a measurement microphone\) and tell us what you got in\b/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (REW y un micrófono de medición) y cuéntanos qué obtuviste en"],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after \(REW\b/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (REW"],
+    [/\band a measurement microphone\) and tell us what you got in\b/g,
+      " y un micrófono de medición) y cuéntanos qué obtuviste en"],
+    [/\bOne block, repeated\b/g, "Un bloque, repetido"],
+    [/\bOne bloque, repeated\b/g, "Un bloque, repetido"],
+    [/\bMeasure the decay of this mode before and after\b/g, "Mide el decaimiento de este modo antes y después"],
+    [/\bDesign intent, calculated from the shape of the tile and checked with a 2D simulation \(/g,
+      "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D ("],
+    [/\bBEM check\)/g, "comprobación BEM), no una medición."],
+    [/\bDesign intent, calculated from the shape of the tile and checked with a 2D simulation \(BEM check\), not a measurement\./g,
+      "Intención de diseño, calculada a partir de la forma del panel y verificada con una simulación 2D (comprobación BEM), no una medición."],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after \(/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después ("],
+    [/\bREW and a measurement microphone\) and tell us what you got in/g,
+      "REW y un micrófono de medición) y cuéntanos qué obtuviste en"],
+    [/\bThis is an experiment you can join: measure the decay of this mode before and after \(/g,
+      "Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después ("],
+    [/\band a measurement microphone\) and tell us what you got in/g,
+      " y un micrófono de medición) y cuéntanos qué obtuviste en"],
+    [/\bREW\b/g, "REW"],
+  ];
+  function clean(s) {
+    if (typeof s !== "string" || !s) return s;
+    var out = tr(s);
+    for (var i = 0; i < CLEAN.length; i++) out = out.replace(CLEAN[i][0], CLEAN[i][1]);
+    return out;
+  }
+  var _clean = clean;
+  window.__esClean = clean;
+})();
+</script>
+<script id="theme-switch">
+
+/* --- Switch de tema claro / oscuro (Consultoria SSO) --- */
+(function () {
+  var KEY = "acus-qrd-theme";
+  var root = document.documentElement;
+  var btn = document.getElementById("themeSwitch");
+  var lbl = document.getElementById("themeLabel");
+
+  function readStored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function store(v) { try { localStorage.setItem(KEY, v); } catch (e) { /* modo privado */ } }
+
+  function apply(theme) {
+    root.setAttribute("data-theme", theme);
+    if (lbl) lbl.textContent = theme === "light" ? "Claro" : "Oscuro";
+    if (btn) btn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", theme === "light" ? "#eaeef3" : "#22252A");
+  }
+  function current() { return root.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+  function toggle() { var n = current() === "light" ? "dark" : "light"; apply(n); store(n); }
+
+  var saved = readStored();
+  apply(saved === "dark" ? "dark" : "light");
+
+  if (btn) btn.addEventListener("click", toggle);
+
+  try {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+      if (readStored()) return;
+      apply(e.matches ? "dark" : "light");
+    });
+  } catch (e) { /* sin matchMedia */ }
+})();
+
+</script>
 <script type="module">
 const $ = (id) => document.getElementById(id);
 const CDN_MANIFOLD = "https://cdn.jsdelivr.net/npm/manifold-3d@3.5.3/+esm";
@@ -2054,7 +2731,7 @@ const g = (v) => D.fmtG(v);
 const r1 = (v) => +v.toFixed(1);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const esc = (s) => { const t = (window.__esTr ? window.__esTr(s) : s); return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
 
 /* ------------------------------------------------------------------ errors in the page, never only in the console */
 function showError(msg) {
@@ -2063,8 +2740,8 @@ function showError(msg) {
   el.hidden = false;
 }
 function clearError() { $("err").hidden = true; }
-window.addEventListener("error", (e) => showError("Something went wrong: " + (e.message || "unknown error")));
-window.addEventListener("unhandledrejection", (e) => showError("Something went wrong: " + ((e.reason && e.reason.message) || e.reason || "unknown error")));
+window.addEventListener("error", (e) => showError("Something went wrong: " + (e.message || "error desconocido")));
+window.addEventListener("unhandledrejection", (e) => showError("Something went wrong: " + ((e.reason && e.reason.message) || e.reason || "error desconocido")));
 const setStatus = (t) => { $("status").textContent = t; };
 
 /* ------------------------------------------------------------------ state */
@@ -2072,10 +2749,10 @@ const state = { series: "deep", bed: "a1mini", cx: 250, cy: 210, cz: 220, depth:
 
 /* ------------------------------------------------------------------ preview colour: the filament colours of the stage 1 renders (tools/render.py) */
 const FILAMENTS = [
-  { id: "sand", name: "Matte sand", hex: "#D8D0C0", rough: 0.85 },
-  { id: "terracotta", name: "Matte terracotta", hex: "#B15533", rough: 0.85 },
-  { id: "silver", name: "Glossy silver", hex: "#B8BBBC", rough: 0.35 },
-  { id: "ice", name: "Glossy ice", hex: "#A9C8E0", rough: 0.35 }
+  { id: "sand", name: "Arena mate", hex: "#D8D0C0", rough: 0.85 },
+  { id: "terracotta", name: "Terracota mate", hex: "#B15533", rough: 0.85 },
+  { id: "silver", name: "Plata brillante", hex: "#B8BBBC", rough: 0.35 },
+  { id: "ice", name: "Hielo brillante", hex: "#A9C8E0", rough: 0.35 }
 ];
 const DEFAULT_COLOUR = { deep: { S: "sand", L: "terracotta" }, blocks: { S: "silver", L: "ice" } };   // as in the renders
 const colour = { id: "sand", hex: "#D8D0C0", rough: 0.85, chosen: false, custom: "#5E7FA8" };
@@ -2091,7 +2768,7 @@ function buildSwatches() {
   const saved = parseHex(lsGet("diffuser-gen-custom") || "");
   if (saved) colour.custom = saved;
   $("mats").innerHTML = FILAMENTS.map((f) => `<button type="button" class="chip" data-col="${f.id}" style="background:${f.hex}" aria-label="${esc(f.name)}" title="${esc(f.name)}" aria-pressed="false"><span>${esc(f.name)}</span></button>`).join("")
-    + `<div class="custom"><label class="chip cust" id="chipCust" title="Pick your own colour"><input type="color" id="colPick" aria-label="Custom colour" value="${colour.custom.toLowerCase()}"><span>Custom</span></label>`
+    + `<div class="custom"><label class="chip cust" id="chipCust" title="Elige tu propio color"><input type="color" id="colPick" aria-label="Custom colour" value="${colour.custom.toLowerCase()}"><span>Personalizado</span></label>`
     + `<input class="hex" id="hexIn" type="text" maxlength="7" spellcheck="false" autocomplete="off" placeholder="#RRGGBB" aria-label="Custom colour as hex" value="${colour.custom}"></div>`;
   $("mats").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-col]");
@@ -2135,7 +2812,7 @@ function syncColour(set) {
 }
 
 function bedNow() {
-  if (state.bed === "custom") return { name: "Custom", x: state.cx, y: state.cy, z: state.cz };
+  if (state.bed === "custom") return { name: "Personalizado", x: state.cx, y: state.cy, z: state.cz };
   return D.BEDS.find((b) => b.key === state.bed);
 }
 function resolve() {
@@ -2155,14 +2832,14 @@ function resetDepth() {
   state.depth = D.limits(state.series, bedNow()).depthDefault;
 }
 
-const wallHead = (w) => w.tiles === 1 ? "1 tile" : w.rows === 1 ? `${w.tiles} tiles` : `${w.cols} x ${w.rows}`;
+const wallHead = (w) => w.tiles === 1 ? "1 panel" : w.rows === 1 ? `${w.tiles} tiles` : `${w.cols} x ${w.rows}`;
 
 /* ------------------------------------------------------------------ controls */
 function buildStaticControls() {
   buildSwatches();
   const beds = $("beds");
   beds.innerHTML = D.BEDS.map((b) => `<button type="button" class="key" data-bed="${b.key}" aria-pressed="false"><b>${esc(b.short)}</b><small>${b.x} x ${b.y} x ${b.z} mm</small></button>`).join("")
-    + `<button type="button" class="key" data-bed="custom" aria-pressed="false"><b>Custom</b><small>your own bed</small></button>`;
+    + `<button type="button" class="key" data-bed="custom" aria-pressed="false"><b>Personalizado</b><small>tu propia cama</small></button>`;
   beds.addEventListener("click", (e) => {
     const b = e.target.closest("button[data-bed]");
     if (!b) return;
@@ -2233,7 +2910,7 @@ function syncControls(R) {
       const L = levelOf(state.series, p, w);
       const head = wallHead(w);
       const size = `${Math.round(wb.wallWidthMm / 10)}x${Math.round(wb.wallHeightMm / 10)}`;
-      return `<button type="button" class="key wk l${L}" data-wall="${w.id}" aria-pressed="false" data-head="${esc(head)}" data-size="${size}" data-level="${L}" aria-label="${esc(head)}, wall ${size.replace("x", " by ")} cm, ${esc(LEVELS[L].label)}">`
+      return `<button type="button" class="key wk l${L}" data-wall="${w.id}" aria-pressed="false" data-head="${esc(head)}" data-size="${size}" data-level="${L}" aria-label="${esc(head)}, muro ${size.replace("x", " by ")} cm, ${esc(LEVELS[L].label)}">`
         + `<span class="wc">${faceSvg(L)}<i class="wbar"></i></span><b class="wn">${esc(head)}</b><span class="ws">${size}</span></button>`;
     });
     const leg = `<div class="wleg" aria-hidden="true"><span class="wc"></span><span class="wn"></span><span class="ws">cm</span></div>`;
@@ -2253,24 +2930,24 @@ function syncControls(R) {
   }
   tiles.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(+b.dataset.tile === state.tile)));
   $("tileOut").textContent = `tile ${state.tile} of ${tilesIn.length}`;
-  $("bStl").textContent = `Download tile ${state.tile} only (STL)`;
+  $("bStl").textContent = `Download panel ${state.tile} only (STL)`;
   $("getNote").textContent = wall.tiles === 1
-    ? "ZIP: the STL of tile 1, the wall plan and a README."
-    : `ZIP: ${tilesIn.length} STL files (one per tile number), the wall plan and a README with how many of each to print.`;
+    ? "ZIP: el STL del panel 1, el plano del muro y un README."
+    : `ZIP: ${tilesIn.length} STL files (uno por número de panel), el plano del muro y un README con cuántos de cada para imprimir.`;
 
   const deep = state.series === "deep";
   const dm = deep ? D.deepDims(p) : D.blockDims(p);
   const size = `${g(dm[0])} x ${g(dm[1])} x ${g(dm[2])}`;
   const count = deep ? String(p.N) : `${p.Nx} x ${p.Ny}`;
-  const rows = [["Tile size (W x H x D)", `${size} mm`], [deep ? "Wells" : "Blocks", count]];
+  const rows = [["Tamaño del panel (An x Al x P)", `${size} mm`], [deep ? "Pozos" : "Bloques", count]];
   if (deep) {
     const depths = D.deepDepths(p, state.tile).slice().reverse().map((v) => g(r1(v)));
-    rows.push(["Well width", `${g(r1(p.pitch - p.fin))} mm`], ["Well depths (mm)", depths.join(" ")], ["Prints", "standing on its end"]);
+    rows.push(["Ancho del pozo", `${g(r1(p.pitch - p.fin))} mm`], ["Profundidades de los pozos (mm)", depths.join(" ")], ["Impresiones", "de pie sobre su base"]);
   } else {
-    rows.push(["Block width", `${g(r1(p.W / p.Nx))} x ${g(r1(p.H / p.Ny))} mm`], ["Prints", "lying on its back"]);
+    rows.push(["Ancho del bloque", `${g(r1(p.W / p.Nx))} x ${g(r1(p.H / p.Ny))} mm`], ["Impresiones", "acostado sobre su espalda"]);
   }
   $("derived").innerHTML = rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("");
-  $("nameplate").innerHTML = `${deep ? "Deep" : "Blocks"} series<small>Tile ${state.tile}, wall of ${wall.tiles} ${wall.tiles === 1 ? "tile" : "tiles"}, ${esc(bed.name)}, depth ${state.depth} mm</small>`;
+  $("nameplate").innerHTML = `${deep ? "Profunda" : "Bloques"} series<small>Tile ${state.tile}, muro of ${wall.tiles} ${wall.tiles === 1 ? "tile" : "tiles"}, ${esc(bed.name)}, profundidad ${state.depth} mm</small>`;
   syncColour(set);
 }
 
@@ -2291,17 +2968,17 @@ function renderBand(R) {
   const b = bandOf(R.p);
   const lo = fpos(b.f0), hi = fpos(b.f_high);
   $("band").innerHTML = `
-    <div class="lab">Frequency band</div>
-    <p class="big">Design band about <em>${esc(fmtHz(b.f0))}</em> to <em>${esc(fmtHz(b.f_high))}</em></p>
-    <div class="bar" role="img" aria-label="Design band from ${esc(fmtHz(b.f0))} to ${esc(fmtHz(b.f_high))} on a frequency axis from 100 Hz to 20 kHz">
+    <div class="lab">Banda de frecuencia</div>
+    <p class="big">Banda de diseño desde unos <em>${esc(fmtHz(b.f0))}</em> to <em>${esc(fmtHz(b.f_high))}</em></p>
+    <div class="bar" role="img" aria-label="Banda de diseño desde ${esc(fmtHz(b.f0))} to ${esc(fmtHz(b.f_high))} en un eje de frecuencia de 100 Hz a 20 kHz">
       <i style="left:${lo.toFixed(2)}%;width:${Math.max(0.5, hi - lo).toFixed(2)}%"></i>
       <b class="first" style="left:0" data-l="100 Hz"></b><b style="left:${fpos(1000).toFixed(2)}%" data-l="1 kHz"></b><b style="left:${fpos(10000).toFixed(2)}%" data-l="10 kHz"></b>
     </div>
     <p class="note">${esc(bandSource(state.series, R.p, b))}</p>
     <p class="note fine">${state.series === "deep"
-      ? `Design intent, calculated from the shape of the tile and checked with a 2D simulation (<a href="${BEM_CHECK_URL}" target="_blank" rel="noopener">BEM check</a>), not a measurement.`
-      : "Design intent, calculated from the shape of the tile, not a measurement."}</p>
-    <div class="thiswall"><div class="lab">This wall</div><p class="lead">${esc(wallRange(R, b))}</p></div>`;
+      ? `Design intent, calculated from the shape of the tile and checked with a 2D simulation (<a href="${BEM_CHECK_URL}" target="_blank" rel="noopener">comprobación BEM</a>), no una medición.`
+      : "Intención de diseño, calculada a partir de la forma del panel, no una medición."}</p>
+    <div class="thiswall"><div class="lab">Este muro</div><p class="lead">${esc(wallRange(R, b))}</p></div>`;
 }
 /* the 2D BEM check of the default deep walls (docs/bem-check.md), linked next to the design band */
 const BEM_CHECK_URL = "https://github.com/Chronosauros/diffuser-generator/blob/main/docs/bem-check.md";
@@ -2309,21 +2986,21 @@ const BEM_CHECK_URL = "https://github.com/Chronosauros/diffuser-generator/blob/m
    the flat-plate frequency the top */
 function bandSource(series, p, b) {
   if (series !== "deep")
-    return `The low end comes from the ${g(p.hmax)} mm tallest block, the top from the ${g(r1(b.block))} mm block width.`;
-  const low = `The low end comes from the ${g(p.dmax)} mm deepest well.`;
-  if (b.f_flat <= b.f_width) return `${low} The band stops at 7 x the design frequency, where the tile reflects like a flat panel.`;
-  return `${low} The top comes from the ${g(r1(b.well_width))} mm well width; around ${fmtHz(b.f_flat)} (7 x the design frequency) the tile reflects like a flat panel.`;
+    return `El límite inferior viene del ${g(p.hmax)} mm de bloque más alto, y el superior del ${g(r1(b.block))} mm de ancho de bloque.`;
+  const low = `El límite inferior viene del ${g(p.dmax)} mm de pozo más profundo.`;
+  if (b.f_flat <= b.f_width) return `${low} La banda termina en 7 veces la frecuencia de diseño, donde el panel refleja como un panel plano.`;
+  return `${low} El límite superior viene del ${g(r1(b.well_width))} mm well width; around ${fmtHz(b.f_flat)} (7 veces la frecuencia de diseño) el panel refleja como un panel plano.`;
 }
 /* what the chosen wall scatters: the range of its width, and what a wider wall would add */
 function wallRange(R, b) {
   const wb = D.wallBand(state.series, R.p, R.wall.cols, R.wall.rows);
-  let first = `Scatters from about ${fmtHz(wb.low)} to ${fmtHz(wb.high)}.`;
+  let first = `Dispersa desde unos ${fmtHz(wb.low)} to ${fmtHz(wb.high)}.`;
   if (wb.low > b.f0 + 1e-9) {
     if (state.series === "deep") {
       const full = D.deepFullWidth(R.p), tiles = Math.ceil(full / D.deepDims(R.p)[0] - 1e-6);
-      first += ` A wider wall reaches lower: from about ${Math.ceil(full / 10)} cm wide (${tiles} tiles across) it covers the design band from about ${fmtHz(b.f0)}.`;
+      first += ` Un muro más ancho llega más abajo: desde unos ${Math.ceil(full / 10)} cm de ancho (${tiles} paneles de ancho) cubre la banda de diseño desde unos ${fmtHz(b.f0)}.`;
     } else {
-      first += ` A wider wall reaches lower: from ${Math.ceil(343 / b.f0 * 100)} cm wide it covers the design band from about ${fmtHz(b.f0)}.`;
+      first += ` Un muro más ancho llega más abajo: desde ${Math.ceil(343 / b.f0 * 100)} cm de ancho cubre la banda de diseño desde unos ${fmtHz(b.f0)}.`;
     }
   }
   return first;
@@ -2332,10 +3009,10 @@ function wallRange(R, b) {
 /* how much sense a wall makes, by its width: the four levels of round 3 (1 tile / < 60 cm / 60-120 cm / from 120 cm).
    Qualitative placement guidance, not a measurement. Shared by every prototype, so they compare layout, not wording. */
 const LEVELS = [
-  { label: "Just to try", text: "One tile to try fit, finish and colour. Too small to change how a room sounds." },
-  { label: "Some effect", text: "A small patch: it scatters one spot, mostly in the upper part of the band." },
-  { label: "Makes sense", text: "Wide enough to treat one first-reflection point, or the wall behind one listening seat." },
-  { label: "Great", text: "Covers the reflection area behind or beside one listening position." }
+  { label: "Solo para probar", text: "Un panel para probar ajuste, terminación y color. Demasiado pequeño para cambiar cómo suena una sala." },
+  { label: "Algún efecto", text: "Una zona pequeña: dispersa un punto, sobre todo en la parte alta de la banda." },
+  { label: "Tiene sentido", text: "Suficientemente ancho para tratar un punto de primera reflexión, o el muro detrás de una butaca de escucha." },
+  { label: "Grande", text: "Cubre la zona de reflexión detrás o al lado de una posición de escucha." }
 ];
 function levelOf(series, p, wall) {
   const widthCm = D.wallBand(series, p, wall.cols, wall.rows).wallWidthMm / 10;
@@ -2419,7 +3096,7 @@ function quantities(wall) {
 }
 function printList(wall) {
   const q = quantities(wall);
-  if (q.every(([, n]) => n === q[0][1])) return q[0][1] === 1 ? `Print one of each tile: ${q.map(([t]) => t).join(" ")}.` : `Print ${q[0][1]} of each tile: ${q.map(([t]) => t).join(" ")}.`;
+  if (q.every(([, n]) => n === q[0][1])) return q[0][1] === 1 ? `Imprimir uno de cada panel: ${q.map(([t]) => t).join(" ")}.` : `Print ${q[0][1]} de cada panel: ${q.map(([t]) => t).join(" ")}.`;
   return "Print: " + q.map(([t, n]) => `tile ${t} x ${n}`).join(", ") + ".";
 }
 
@@ -2432,12 +3109,12 @@ function planModel(series, p, set, hl, wall) {
     inner += deep ? deepTileSvg(c * tw, r * th, p, t, hl) : blockTileSvg(c * tw, r * th, p, t, set.shifts[t - 1], hl);
   }));
   const size = `${g(r1(wall.cols * tw / 10))} x ${g(r1(wall.rows * th / 10))} cm`;
-  const head = wall.tiles === 1 ? "1 tile" : `${wall.tiles} tiles, ${wall.cols} x ${wall.rows}`;
+  const head = wall.tiles === 1 ? "1 panel" : `${wall.tiles} paneles, ${wall.cols} x ${wall.rows}`;
   const lines = [wall.grid.map((row) => row.join("  ")).join("  /  ")]
-    .map((s) => "Seen from the room, left to right, top to bottom: " + s + ".");
+    .map((s) => "Visto desde la sala, de izquierda a derecha, de arriba abajo: " + s + ".");
   lines.push(printList(wall));
-  return { kind: series, rows: [{ title: `${deep ? "Deep" : "Blocks"} (${dimsStr(series, p)} mm per tile), ${head}: ${size}`, lines, inner, w: wall.cols * tw, h: wall.rows * th }],
-    notes: [deep ? "Wells vertical. Number and arrow are on the back: arrow up." : "Number and arrow are on the back: arrow up."] };
+  return { kind: series, rows: [{ title: `${deep ? "Profunda" : "Bloques"} (${dimsStr(series, p)} mm por panel), ${head}: ${size}`, lines, inner, w: wall.cols * tw, h: wall.rows * th }],
+    notes: [deep ? "Pozos verticales. El número y la flecha están en la parte posterior: flecha hacia arriba." : "El número y la flecha están en la parte posterior: flecha hacia arriba."] };
 }
 
 let planKey = "";
@@ -2473,7 +3150,7 @@ function planDocument(series, p, set, wall) {
   y += mg - 5;
   const w = wMax + 2 * mg;
   return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${r3(w)} ${r3(y)}" width="1600" height="${Math.round(1600 * y / w)}">`
-    + `<title>Soundblooms diffuser wall plan, seen from the room</title><rect width="100%" height="100%" fill="${PLC.bg}"/>${body}</svg>\n`;
+    + `<title>Plano de muro de difusores, visto desde la sala</title><rect width="100%" height="100%" fill="${PLC.bg}"/>${body}</svg>\n`;
 }
 
 /* ------------------------------------------------------------------ geometry -> mesh */
@@ -2492,7 +3169,7 @@ function buildMesh(series, p, set, tile, meshToo = true) {
   let m = null;
   try {
     m = series === "deep" ? D.deepTile(p, tile) : D.blockTile(p, tile, set.shifts[tile - 1][0], set.shifts[tile - 1][1]);
-    if (m.isEmpty()) throw new Error("the geometry came out empty for these settings");
+    if (m.isEmpty()) throw new Error("la geometría salió vacía con estos ajustes");
     const feats = D.features(m);
     if (featCache.size > 300) featCache.clear();
     featCache.set(featKey(series, p, tile), feats);
@@ -2505,7 +3182,7 @@ function buildMesh(series, p, set, tile, meshToo = true) {
 function stlBytes(mesh) {
   const { pos, idx } = mesh, nt = idx.length / 3;
   const buf = new ArrayBuffer(84 + nt * 50), dv = new DataView(buf);
-  const head = "Soundblooms diffuser generator";
+  const head = "Generador de difusores acústicos";
   for (let i = 0; i < head.length; i++) dv.setUint8(i, head.charCodeAt(i));
   dv.setUint32(80, nt, true);
   let o = 84;
@@ -2605,33 +3282,33 @@ function readmeText(series, bed, p, set, wall, est) {
   const wb = D.wallBand(series, p, wall.cols, wall.rows);
   const q = quantities(wall);
   const L = [];
-  L.push(deep ? "Soundblooms acoustic diffuser - deep series (1D quadratic residue diffuser, N = 7)" : "Soundblooms acoustic diffuser - block series (2D quadratic residue diffuser)");
-  L.push("Made with the Soundblooms Diffuser Generator - https://soundblooms.com", "");
-  L.push(`Printer bed: ${p.bed}`);
+  L.push(deep ? "Soundblooms acoustic diffuser - deep series (1D quadratic residue diffuser, N = 7)" : "Difusor acústico - serie de bloques (difusor de residuos cuadráticos 2D)");
+  L.push("Hecho con el Generador de Difusores Acústicos - https://soundblooms.com", "");
+  L.push(`Cama de impresión: ${p.bed}`);
   L.push(`Tile size (W x H x D): ${dm.map(g).join(" x ")} mm`);
-  L.push(deep ? `Depth (deepest well): ${g(p.dmax)} mm, well pitch ${g(p.pitch)} mm, well width ${g(r1(p.pitch - p.fin))} mm`
-              : `Depth (tallest block): ${g(p.hmax)} mm, base ${g(p.base)} mm, ${p.Nx} x ${p.Ny} blocks of ${g(r1(p.W / p.Nx))} x ${g(r1(p.H / p.Ny))} mm`);
+  L.push(deep ? `Profundidad (pozo más profundo): ${g(p.dmax)} mm, paso de pozo ${g(p.pitch)} mm, ancho de pozo ${g(r1(p.pitch - p.fin))} mm`
+              : `Profundidad (bloque más alto): ${g(p.hmax)} mm, base ${g(p.base)} mm, ${p.Nx} x ${p.Ny} bloques de ${g(r1(p.W / p.Nx))} x ${g(r1(p.H / p.Ny))} mm`);
   L.push(`Wall: ${wall.tiles} ${wall.tiles === 1 ? "tile" : "tiles"}${wall.tiles === 1 ? "" : `, ${wall.cols} x ${wall.rows}`}, about ${g(r1(wb.wallWidthMm / 10))} x ${g(r1(wb.wallHeightMm / 10))} cm`);
-  L.push(`Files: one STL per tile number (${q.length} ${q.length === 1 ? "file" : "files"}), every tile has its number and an up arrow sunk into the back`, "");
-  L.push("How many to print");
+  L.push(`Archivos: un STL por número de panel (${q.length} ${q.length === 1 ? "file" : "files"}), every panel has its number and an up arrow sunk into the back`, "");
+  L.push("Cuántos imprimir");
   if (q.every(([, n]) => n === q[0][1])) L.push(`  ${q[0][1] === 1 ? "One" : q[0][1]} of each ${q.length === 1 ? "tile" : `of the ${q.length} tiles`}.`);
   q.forEach(([t, n]) => L.push(`  ${D.name(series, p, t)}.stl: ${n}`));
-  L.push("", "Design band (design intent: calculated, not measured)");
+  L.push("", "Banda de diseño (intención de diseño: calculada, no medida)");
   L.push(`  About ${fmtHz(b.f0)} to ${fmtHz(b.f_high)}. ${bandSource(series, p, b)}`);
-  L.push("This wall (calculated, not measured)");
-  L.push(`  Scatters from about ${fmtHz(wb.low)} to ${fmtHz(wb.high)}.`);
-  if (deep) L.push(`  2D simulation (BEM) of the default deep walls, with the code and the data: ${BEM_CHECK_URL}`);
+  L.push("Este muro (calculado, no medido)");
+  L.push(`  Dispersa desde unos ${fmtHz(wb.low)} to ${fmtHz(wb.high)}.`);
+  if (deep) L.push(`  2D simulation (BEM) of the default deep muros, with the code and the data: ${BEM_CHECK_URL}`);
   L.push("  Placement guidance, not a measurement. Diffusers work best a little away from you; very close to your ears they help less.", "");
-  L.push("Print estimate");
+  L.push("Estimación de impresión");
   if (est) {
     q.forEach(([t]) => L.push(`  Tile ${t}: about ${fmtTileTime(est.per.get(t).minutes)}, ${fmtTileGrams(est.per.get(t).grams)}`));
     L.push(`  Wall (${wall.tiles} ${wall.tiles === 1 ? "tile" : "tiles"}): about ${fmtWallTime(est.wall.minutes)}, ${fmtWallGrams(est.wall.grams)}`);
   }
   L.push(`  ${ESTIMATE_NOTE}`, "");
-  L.push("Wall plan: see wall-plan.svg (seen from the room, numbers and order of the tiles).", "");
-  L.push("Printing");
-  L.push(deep ? "  Print each tile standing on its end, wells vertical, no supports. Tested profile: 0.28 mm layers, 4 walls, gyroid 10 % infill (Bambu Lab P1S, 0.4 mm nozzle, PLA)."
-              : "  Print each tile lying on its back, no supports. Tested profile: 0.20 mm layers, 2 walls, lightning 15 % infill (Bambu Lab P1S, 0.4 mm nozzle, PLA).");
+  L.push("Plano del muro: ver wall-plan.svg (visto desde la sala, números y orden de los paneles).", "");
+  L.push("Imprimiendo");
+  L.push(deep ? "  Imprime cada panel de pie sobre su base, con los pozos verticales, sin soportes. Perfil probado: capas de 0,28 mm, 4 perímetros, relleno gyroid 10 % (Bambu Lab P1S, boquilla 0,4 mm, PLA)."
+              : "  Imprime cada panel acostado sobre su espalda, sin soportes. Perfil probado: capas de 0,20 mm, 2 perímetros, relleno lightning 15 % (Bambu Lab P1S, boquilla 0,4 mm, PLA).");
   L.push("  Mounting: the back is flat; removable picture-hanging adhesive strips work on a clean, painted, dry wall.");
   return L.join("\n") + "\n";
 }
@@ -2643,7 +3320,7 @@ function initThree() {
   try {
     renderer = new T3.WebGLRenderer({ antialias: true });
   } catch (e) {
-    $("viewNone").textContent = "3D preview unavailable (WebGL is not enabled in this browser). The downloads still work.";
+    $("viewNone").textContent = "Vista previa 3D no disponible (WebGL no está habilitado en este navegador). Las descargas funcionan igual.";
     renderer = null;
     return;
   }
@@ -2727,24 +3404,24 @@ function renderDash(R) {
   const wb = D.wallBand(state.series, R.p, wall.cols, wall.rows);
   const e = wallEstimates(state.series, R.p, wall);
   const ro = (icon, v) => `<div class="ro">${icon}<span><small>about</small>${esc(v)}</span></div>`;
-  const wait = `<div class="ro wait">Estimating print time and filament...</div>`;
+  const wait = `<div class="ro wait">Estimando tiempo de impresión y filamento...</div>`;
   $("dash").innerHTML = `<div class="dash-row">`
-    + `<div class="dc"><div class="lab">Your wall</div><div class="val">${wall.tiles}<small class="after">${wall.tiles === 1 ? "tile" : "tiles"}</small></div><div class="sub">${Math.round(wb.wallWidthMm / 10)} x ${Math.round(wb.wallHeightMm / 10)} cm</div></div>`
-    + `<div class="dc"><div class="lab">How much sense</div><div class="sense">${faceSvg(L)}<span class="name">${esc(LEVELS[L].label)}</span></div></div>`
-    + `<div class="dc"><div class="lab">Print time, whole wall</div>${e ? ro(ICON_CLOCK, fmtWallTime(e.wall.minutes)) : wait}</div>`
-    + `<div class="dc"><div class="lab">Filament, whole wall</div>${e ? ro(ICON_SPOOL, fmtWallGrams(e.wall.grams)) : wait}</div>`
+    + `<div class="dc"><div class="lab">Tu muro</div><div class="val">${wall.tiles}<small class="after">${wall.tiles === 1 ? "tile" : "tiles"}</small></div><div class="sub">${Math.round(wb.wallWidthMm / 10)} x ${Math.round(wb.wallHeightMm / 10)} cm</div></div>`
+    + `<div class="dc"><div class="lab">Cuánto sentido</div><div class="sense">${faceSvg(L)}<span class="name">${esc(LEVELS[L].label)}</span></div></div>`
+    + `<div class="dc"><div class="lab">Tiempo de impresión, muro completo</div>${e ? ro(ICON_CLOCK, fmtWallTime(e.wall.minutes)) : wait}</div>`
+    + `<div class="dc"><div class="lab">Filamento, muro completo</div>${e ? ro(ICON_SPOOL, fmtWallGrams(e.wall.grams)) : wait}</div>`
     + `</div><div class="dash-notes">`
     + `<p class="effect">${esc(LEVELS[L].text)}</p>`
-    + (state.series === "blocks" ? `<p class="note">Block tiles work on upper mids and treble only.</p>` : "")
+    + (state.series === "blocks" ? `<p class="note">Los bloques solo funcionan en medios agudos y agudos.</p>` : "")
     + `<p class="note">${esc(ESTIMATE_NOTE)}</p></div>`;
 }
 function renderGet(R) {
   const e = wallEstimates(state.series, R.p, R.wall);
   $("estNote").textContent = ESTIMATE_NOTE;
-  $("getWallT").textContent = R.wall.tiles === 1 ? "Whole wall: 1 tile" : `Whole wall: ${R.wall.tiles} tiles`;
+  $("getWallT").textContent = R.wall.tiles === 1 ? "Muro completo: 1 panel" : `Muro completo: ${R.wall.tiles} tiles`;
   $("getTileT").textContent = `Tile ${state.tile} on screen`;
   if (!e) {
-    const wait = `<span class="ro wait">Estimating print time and filament...</span>`;
+    const wait = `<span class="ro wait">Estimando tiempo de impresión y filamento...</span>`;
     $("estWall").innerHTML = wait;
     $("estTile").innerHTML = wait;
     return;
@@ -2779,7 +3456,7 @@ function update() {
   if (current && current.key !== meshKey(R)) $("bStl").disabled = true;
   if (!M) return;
   clearTimeout(buildTimer);
-  setStatus("Building geometry...");
+  setStatus("Construyendo la geometría...");
   buildTimer = setTimeout(buildCurrent, 140);
 }
 
@@ -2797,12 +3474,12 @@ async function buildCurrent() {
     $("bStl").disabled = false;
     $("bZip").disabled = false;
     setStatus(`Ready: ${(mesh.idx.length / 3).toLocaleString("en-US")} triangles, ${(mesh.volume / 1000).toFixed(1)} cm3, built in ${Math.round(performance.now() - t0)} ms.`);
-    refreshEstimates(R, seq).catch((e) => showError("Could not estimate the print: " + (e.message || e)));
+    refreshEstimates(R, seq).catch((e) => showError("Could not estimate the imprimir: " + (e.message || e)));
   } catch (e) {
     if (seq !== buildSeq) return;
     current = null;
     $("bStl").disabled = true;
-    setStatus("Could not build this tile.");
+    setStatus("No se pudo construir este panel.");
     showError("Could not build the geometry: " + (e.message || e));
   }
 }
@@ -2826,21 +3503,21 @@ async function downloadSet() {
     const folder = D.name(series, R.p, 1).replace(/-tile1$/, "") + (R.wall.tiles === 1 ? "-1-tile" : `-wall-${R.wall.cols}x${R.wall.rows}`);
     for (let i = 0; i < q.length; i++) {
       const t = q[i][0];
-      setStatus(`Building tile ${t} (${i + 1} of ${q.length})...`);
+      setStatus(`Building panel ${t} (${i + 1} of ${q.length})...`);
       await sleep(20);
       const mesh = t === state.tile && current && current.key === meshKey(R) ? current.mesh : buildMesh(series, R.p, R.set, t);
       files.push({ name: `${folder}/${D.name(series, R.p, t)}.stl`, data: stlBytes(mesh) });
     }
-    setStatus("Packing the ZIP...");
+    setStatus("Empaquetando el ZIP...");
     await sleep(20);
     const enc = new TextEncoder();
     files.push({ name: `${folder}/wall-plan.svg`, data: enc.encode(planDocument(series, R.p, R.set, R.wall)) });
     files.push({ name: `${folder}/README.txt`, data: enc.encode(readmeText(series, R.bed, R.p, R.set, R.wall, wallEstimates(series, R.p, R.wall))) });
     const zip = makeZip(files);
     saveFile(folder + ".zip", zip, "application/zip");
-    setStatus(`Saved ${folder}.zip (${q.length} STL ${q.length === 1 ? "file" : "files"}, wall plan, README).`);
+    setStatus(`Saved ${folder}.zip (${q.length} STL ${q.length === 1 ? "file" : "files"}, muro plan, README).`);
   } catch (e) {
-    setStatus("Could not build the set.");
+    setStatus("No se pudo construir el conjunto.");
     showError("Could not build the set: " + (e.message || e));
   } finally {
     busy = false;
@@ -2890,7 +3567,7 @@ const BASS_DISCUSSIONS_URL = "https://github.com/Chronosauros/diffuser-generator
 const BP = createBassPhysics();
 const G0 = createBassGeometry(null, BP);           // pure functions (design, packBlocks) before the geometry engine has loaded
 let G = null;                                       // the same with manifold, once loaded
-const ALPHAS = [{ a: 0.05, name: "Lively" }, { a: 0.10, name: "Medium" }, { a: 0.20, name: "Damped" }];
+const ALPHAS = [{ a: 0.05, name: "Vivos" }, { a: 0.10, name: "Medios" }, { a: 0.20, name: "Amortiguados" }];
 const ROOM_MIN = 2, ROOM_MAX = 12, N_MAX = 16;
 const bt = {
   active: false, ready: false, L: [4.0, 3.2, 2.6], alpha: 0.10, N: 8, bed: "p1s", cx: 250, cy: 250, cz: 250,
@@ -2901,27 +3578,27 @@ const t60s = (v) => v.toFixed(2) + " s";
 const dbs = (v) => (Math.abs(v) < 0.05 ? "0.0" : v.toFixed(1)) + " dB";
 const modeKey = (r) => r.n.join(",");
 const modeIdx = (r) => "(" + r.n.join(",") + ")";
-const alphaName = (a) => { const x = ALPHAS.find((q) => Math.abs(q.a - a) < 1e-9); return x ? x.name : "Custom"; };
+const alphaName = (a) => { const x = ALPHAS.find((q) => Math.abs(q.a - a) < 1e-9); return x ? x.name : "Personalizado"; };
 const kgs = (gr) => gr < 1000 ? `${Math.max(10, Math.round(gr / 10) * 10)} g` : `${(gr / 1000).toFixed(1)} kg`;
 const hs = (min) => `${Math.max(1, Math.round(min / 60))} h`;
 /* one place, rounded down: "about" must not promise more than the model gives */
 const aboutNum = (x) => Math.floor(x * 20 + 1e-9) / 20;
 const aboutX = (x) => { const v = aboutNum(x); return Math.abs(v * 10 - Math.round(v * 10)) < 1e-9 ? v.toFixed(1) : v.toFixed(2); };
-const APPROX_TEXT = "can be off by 25 % or more (up to about 40 % against the 3D simulation)";
-const wallsText = (a) => `alpha ${a.toFixed(2)} (${alphaName(a)} walls)`;
+const APPROX_TEXT = "puede desviarse un 25 % o más (hasta cerca del 40 % frente a la simulación 3D)";
+const wallsText = (a) => `alpha ${a.toFixed(2)} (${alphaName(a)} muros)`;
 /* lines that are always shown next to the numbers: what nobody has measured, the ceiling, the room that must let the mode ring */
 const FIXED_LINES = [
-  "The resistance of the printed channel is the biggest unknown, about 2x either way. It can shrink the effect and, with wider slots, even reverse it - that is why this tool only makes 6 mm slots. Only a measurement settles it.",
-  "More cells help less and less: the model and the 3D simulation level off at about 1.5-1.75x faster decay however many cells.",
-  "It only works in a room that lets the mode ring: if the walls already damp the mode faster than the cell rings, it does nothing."
+  "La resistencia del canal impreso es la mayor incógnita, con un factor de ~2 en cualquier sentido. Puede reducir el efecto y, con ranuras más anchas, incluso invertirlo: por eso esta herramienta solo hace ranuras de 6 mm. Solo una medición lo resuelve.",
+  "Más celdas ayudan cada vez menos: el modelo y la simulación 3D se estabilizan en unas 1,5 a 1,75 veces más rápido de decaimiento, por muchas celdas que pongas.",
+  "Solo funciona en una sala que deje resonar el modo: si los muros ya amortiguan el modo más rápido de lo que resuena la celda, no hace nada."
 ];
 const upFirst = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-const PLACE_SHORT = { corner: "Corner", "edge-z": "Corner edge", "edge-y": "Floor edge", "edge-x": "Floor edge", "wall-x": "Wall", "wall-y": "Wall", "wall-z": "Floor" };
-const bedBt = () => bt.bed === "custom" ? { name: "Custom", x: bt.cx, y: bt.cy, z: bt.cz } : D.BEDS.find((b) => b.key === bt.bed);
+const PLACE_SHORT = { corner: "Esquina", "edge-z": "Borde de esquina", "edge-y": "Borde del piso", "edge-x": "Borde del piso", "wall-x": "Muro", "wall-y": "Muro", "wall-z": "Piso" };
+const bedBt = () => bt.bed === "custom" ? { name: "Personalizado", x: bt.cx, y: bt.cy, z: bt.cz } : D.BEDS.find((b) => b.key === bt.bed);
 
 /* ---- room and modes */
 function btReadRoom() {
-  const els = [["Length", "btL"], ["Width", "btW"], ["Height", "btH"]];
+  const els = [["Largo", "btL"], ["Ancho", "btW"], ["Alto", "btH"]];
   const v = els.map(([, id]) => $(id).valueAsNumber);
   for (let i = 0; i < 3; i++) {
     if (!(v[i] >= ROOM_MIN && v[i] <= ROOM_MAX))
@@ -2934,7 +3611,7 @@ function btRange(f) {
   if (f < G0.FMODE_MIN) return { ok: false, why: `below ${G0.FMODE_MIN} Hz` };
   const d = G0.design(f);
   if (!d.ok) return { ok: false, why: d.error };
-  if (d.depth > d.max_depth) return { ok: false, why: `cell would be ${Math.round(d.depth)} mm deep, limit ${d.max_depth} mm` };
+  if (d.depth > d.max_depth) return { ok: false, why: `celda would be ${Math.round(d.depth)} mm deep, limit ${d.max_depth} mm` };
   return { ok: true, d };
 }
 function btRoomChanged() {
@@ -3013,8 +3690,8 @@ function btRenderAll() { btRenderRows(); btRenderCard(); btRenderPrint(); }
 /* the best case behind a verdict: the factor, the cells and the print time of that many cells on the chosen bed */
 function btBestCase(x) {
   const v = x.v;
-  if (v.x === null) return "no place with a solution";
-  if (v.noEffect) return "the walls already damp this mode";
+  if (v.x === null) return "sin lugar con solución";
+  if (v.noEffect) return "los muros ya amortiguan este modo";
   const pk = G0.packBlocks(x.range.d, v.N, bedBt());
   return `about ${aboutX(v.x)}x with ${v.N} ${v.N === 1 ? "cell" : "cells"}, ${pk.ok ? "about " + hs(pk.totalMinutes) : "does not fit this bed"}`;
 }
@@ -3024,7 +3701,7 @@ function btRowHtml(x) {
   if (!x.range.ok)
     return `<tr class="oor" data-i="${x.i}"><td class="hz"><button type="button" class="bt-pick" disabled>${f1(r.f)} Hz<small class="m-only">${idx} ${r.kind}</small></button></td>`
       + `<td class="hide-m">${idx}</td><td class="hide-m">${r.kind}</td><td>${t60s(r.t60Before)}</td>`
-      + `<td class="vcell"><span class="vm"></span>Out of range<small class="m-only">${esc(x.range.why)}</small></td><td class="hide-m"><small>${esc(x.range.why)}</small></td></tr>`;
+      + `<td class="vcell"><span class="vm"></span>Fuera de rango<small class="m-only">${esc(x.range.why)}</small></td><td class="hide-m"><small>${esc(x.range.why)}</small></td></tr>`;
   const v = x.v;
   if (!v)
     return `<tr data-i="${x.i}"><td class="hz"><button type="button" class="bt-pick">${f1(r.f)} Hz<small class="m-only">${idx} ${r.kind}</small></button></td>`
@@ -3041,17 +3718,17 @@ function btRenderRows() {
   if (!bt.room) {
     tb.innerHTML = "";
     $("btLegend").innerHTML = "";
-    $("btModesAside").textContent = "Enter a valid room above.";
+    $("btModesAside").textContent = "Ingresa una sala válida arriba.";
     return;
   }
   tb.innerHTML = bt.rows.map(btRowHtml).join("");
   const ok = bt.rows.filter((x) => x.range.ok).length;
-  $("btModesAside").textContent = `Room modes up to 120 Hz, ${bt.rows.length} found${ok < bt.rows.length ? `, ${ok} in range` : ""}`;
+  $("btModesAside").textContent = `Modos de sala hasta 120 Hz, ${bt.rows.length} found${ok < bt.rows.length ? `, ${ok} in range` : ""}`;
   const withV = bt.rows.filter((x) => x.v);
   const lg = [];
-  if (withV.some((x) => x.v.approximate)) lg.push(`<p><b>~ approximate:</b> the single-mode model is less exact here (modes close together, tangential or oblique modes with 4 or more cells, a corner next to another mode); the numbers ${APPROX_TEXT}.</p>`);
-  if (withV.some((x) => x.v.uncertain)) lg.push(`<p><b>? uncertain:</b> the result depends on things nobody has measured (the walls already damp the mode almost as fast as the cell works, an oblique mode at alpha 0.10 or more, or alpha 0.15 or more).</p>`);
-  lg.push(`<p>The verdict is what the model gives with up to 8 cells at the best place, at ${wallsText(bt.alpha)}: worth trying from 1.25x faster decay, small effect from 1.08x. The small line shows that best case and its print time on the bed chosen below. It does not say you will hear it. Modes below ${G0.FMODE_MIN} Hz or needing a cell deeper than 150 mm are out of range. Calculated, not measured.</p>`);
+  if (withV.some((x) => x.v.approximate)) lg.push(`<p><b>~ approximate:</b> el modelo de un solo modo es menos exacto aquí (modes muy juntos, modos tangenciales u oblicuos con 4 celdas o más, una esquina junto a otro modo); las cifras ${APPROX_TEXT}.</p>`);
+  if (withV.some((x) => x.v.uncertain)) lg.push(`<p><b>? uncertain:</b> el resultado depende de cosas que nadie ha medido (los muros ya amortiguan el modo casi tan rápido como funciona la celda, un modo oblicuo con alpha 0,10 o más, o alpha 0,15 o más).</p>`);
+  lg.push(`<p>El veredicto es lo que da el modelo con hasta 8 celdas en el mejor lugar, con ${wallsText(bt.alpha)}: vale la pena probar desde 1,25 veces más rápido de decaimiento, efecto pequeño desde 1,08 veces. La línea pequeña muestra ese mejor caso y su tiempo de impresión en la cama elegida abajo. No significa que lo vas a oír. Los modos por debajo de ${G0.FMODE_MIN} Hz o que necesiten una celda más profunda que 150 mm quedan fuera de rango. Calculado, no medido.</p>`);
   $("btLegend").innerHTML = lg.join("");
 }
 
@@ -3063,38 +3740,38 @@ function btRenderCard() {
   $("btPlus").disabled = bt.N >= N_MAX;
   const x = bt.rows[bt.sel];
   $("btCellsFor").textContent = x && x.range.ok ? `for ${f1(x.r.f)} Hz` : "";
-  if (!bt.room) { el.innerHTML = `<div class="bt-wait">Enter a valid room first.</div>`; return; }
+  if (!bt.room) { el.innerHTML = `<div class="bt-wait">Primero ingresa una sala válida.</div>`; return; }
   if (!c) {
     const anyOk = bt.rows.some((r) => r.range.ok);
-    el.innerHTML = `<div class="bt-wait">${bt.evaluating ? "Calculating the modes..." : anyOk ? "Pick a mode in the table to see what to expect." : "None of the modes of this room can be treated: they are below 35 Hz or need a cell deeper than 150 mm."}</div>`;
+    el.innerHTML = `<div class="bt-wait">${bt.evaluating ? "Calculando los modos..." : anyOk ? "Elige un modo en la tabla para ver qué esperar." : "Ninguno de los modos de esta sala se puede tratar: están por debajo de 35 Hz o necesitan una celda más profunda que 150 mm."}</div>`;
     return;
   }
   const { ev, id, rec, d } = c;
   const f = ev.mode.f, head = `${f1(f)} Hz, ${bt.N} ${bt.N === 1 ? "cell" : "cells"}`;
   if (!rec) {
-    el.innerHTML = `<div class="hrow"><h3>What to expect</h3><span class="aside">${esc(head)}</span></div><div class="bt-wait">No place on the walls of this room holds ${bt.N} ${bt.N === 1 ? "cell" : "cells"} for this mode, or the model has no solution there. Try fewer cells or another mode.</div>`;
+    el.innerHTML = `<div class="hrow"><h3>Qué esperar</h3><span class="aside">${esc(head)}</span></div><div class="bt-wait">Ningún lugar en los muros de esta sala aloja ${bt.N} ${bt.N === 1 ? "cell" : "cells"} para este modo, o el modelo no tiene solución ahí. Prueba con menos celdas u otro modo.</div>`;
     return;
   }
   const x1 = rec.decayFactor;
-  const sub = ev.noEffect ? "no useful change in decay"
-    : aboutNum(x1) >= 1.1 ? `decays about ${aboutX(x1)}x faster` : x1 >= 1 ? "practically no change in decay" : "decay is not shortened";
+  const sub = ev.noEffect ? "ningún cambio útil en el decaimiento"
+    : aboutNum(x1) >= 1.1 ? `decays about ${aboutX(x1)}x faster` : x1 >= 1 ? "prácticamente sin cambio en el decaimiento" : "el decaimiento no se acorta";
   const pk = G0.packBlocks(d, bt.N, bedBt());
   const printVal = pk.ok ? `${pk.prints} ${pk.prints === 1 ? "block" : "blocks"}` : "does not fit";
-  const printSub = pk.ok ? `about ${hs(pk.totalMinutes)}, about ${kgs(pk.totalGrams)} PLA` : "see the Print step";
+  const printSub = pk.ok ? `about ${hs(pk.totalMinutes)}, about ${kgs(pk.totalGrams)} PLA` : "ver el paso de impresión";
   const place = ev.anchors[id].text;
-  const notes = [`<p class="lead"><strong>Calculated, not measured.</strong>${bt.N === 1 ? " One cell alone is practically inaudible." : ""}</p>`];
-  if (ev.noEffect) notes.push(`<p>Your walls already damp this mode faster than the cell rings - a trap here would not shorten the decay.</p>`);
-  if (rec.approximate) notes.push(`<p><b>~ approximate:</b> ${esc(rec.approximateReasons.join("; ") || "the single-mode model is less exact here")}. The numbers ${APPROX_TEXT}.</p>`);
-  if (ev.uncertain.length) notes.push(`<p><b>? uncertain:</b> ${esc(ev.uncertain.join("; "))}. The result depends on things nobody has measured.</p>`);
-  notes.push(`<p class="lead"><strong>What nobody has measured yet</strong></p>${FIXED_LINES.map((t) => `<p>${esc(t)}</p>`).join("")}`);
-  notes.push(`<p>This is an experiment you can join: measure the decay of this mode before and after (<a href="https://www.roomeqwizard.com/" target="_blank" rel="noopener">REW</a> and a measurement microphone) and tell us what you got in <a href="${BASS_DISCUSSIONS_URL}" target="_blank" rel="noopener">GitHub Discussions</a>.</p>`);
-  notes.push(`<p><a href="${BASS_DOCS_URL}" target="_blank" rel="noopener">How this is calculated</a></p>`);
-  el.innerHTML = `<div class="hrow"><h3>What to expect</h3><span class="aside">${esc(head)}</span></div>`
+  const notes = [`<p class="lead"><strong>Calculado, no medido.</strong>${bt.N === 1 ? " Una celda sola es prácticamente inaudible." : ""}</p>`];
+  if (ev.noEffect) notes.push(`<p>Tus muros ya amortiguan este modo más rápido de lo que resuena la celda: una trampa aquí no acortaría el decaimiento.</p>`);
+  if (rec.approximate) notes.push(`<p><b>~ approximate:</b> ${esc(rec.approximateReasons.join("; ") || "el modelo de un solo modo es menos exacto aquí")}. The numbers ${APPROX_TEXT}.</p>`);
+  if (ev.uncertain.length) notes.push(`<p><b>? uncertain:</b> ${esc(ev.uncertain.join("; "))}. El resultado depende de cosas que nadie ha medido.</p>`);
+  notes.push(`<p class="lead"><strong>Lo que nadie ha medido todavía</strong></p>${FIXED_LINES.map((t) => `<p>${esc(t)}</p>`).join("")}`);
+  notes.push(`<p>Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después (<a href="https://www.roomeqwizard.com/" target="_blank" rel="noopener">REW</a> y un micrófono de medición) y cuéntanos qué obtuviste en <a href="${BASS_DISCUSSIONS_URL}" target="_blank" rel="noopener">GitHub Discussions</a>.</p>`);
+  notes.push(`<p><a href="${BASS_DOCS_URL}" target="_blank" rel="noopener">Cómo se calcula esto</a></p>`);
+  el.innerHTML = `<div class="hrow"><h3>Qué esperar</h3><span class="aside">${esc(head)}</span></div>`
     + `<div class="bt-stats c2">`
-    + `<div class="bt-stat"><div class="lab">Mode decay</div><div class="val">${t60s(ev.t60Before)} <small>to</small> ${t60s(rec.t60After)}</div><div class="sub">${esc(sub)}</div><div class="sub">at ${esc(wallsText(bt.alpha))}</div></div>`
-    + `<div class="bt-stat"><div class="lab">Peak</div><div class="val">${dbs(rec.peakDropDb)}</div><div class="sub">at ${f1(f)} Hz</div></div>`
-    + `<div class="bt-stat"><div class="lab">Place</div><div class="val">${esc(PLACE_SHORT[id])}</div><div class="sub">${esc(place)}</div></div>`
-    + `<div class="bt-stat"><div class="lab">Print</div><div class="val">${esc(printVal)}</div><div class="sub">${esc(printSub)}</div></div>`
+    + `<div class="bt-stat"><div class="lab">Decaimiento del modo</div><div class="val">${t60s(ev.t60Before)} <small>to</small> ${t60s(rec.t60After)}</div><div class="sub">${esc(sub)}</div><div class="sub">at ${esc(wallsText(bt.alpha))}</div></div>`
+    + `<div class="bt-stat"><div class="lab">Pico</div><div class="val">${dbs(rec.peakDropDb)}</div><div class="sub">at ${f1(f)} Hz</div></div>`
+    + `<div class="bt-stat"><div class="lab">Lugar</div><div class="val">${esc(PLACE_SHORT[id])}</div><div class="sub">${esc(place)}</div></div>`
+    + `<div class="bt-stat"><div class="lab">Imprimir</div><div class="val">${esc(printVal)}</div><div class="sub">${esc(printSub)}</div></div>`
     + `</div><div class="bt-notes">${notes.join("")}</div>`;
 }
 
@@ -3112,7 +3789,7 @@ function btRenderBeds() {
   if (!el.dataset.built) {
     el.dataset.built = "1";
     el.innerHTML = D.BEDS.map((b) => `<button type="button" class="key" data-btbed="${b.key}" aria-pressed="false"><b>${esc(b.short)}</b><small>${b.x} x ${b.y} x ${b.z} mm</small></button>`).join("")
-      + `<button type="button" class="key" data-btbed="custom" aria-pressed="false"><b>Custom</b><small>your own bed</small></button>`;
+      + `<button type="button" class="key" data-btbed="custom" aria-pressed="false"><b>Personalizado</b><small>tu propia cama</small></button>`;
   }
   const bed = bedBt();
   el.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.btbed === bt.bed)));
@@ -3126,34 +3803,34 @@ function btRenderPrint() {
   fit.hidden = true;
   if (!c || !c.rec) {
     $("btPrintAside").textContent = "";
-    sum.innerHTML = `<div class="bt-wait">${!bt.room ? "Enter a valid room first." : bt.evaluating ? "Calculating the modes..." : c ? "No place found for this number of cells." : "Pick a mode first."}</div>`;
-    btShowNone(!bt.room ? "Enter a valid room first." : "Pick a mode to see one block.");
+    sum.innerHTML = `<div class="bt-wait">${!bt.room ? "Primero ingresa una sala válida." : bt.evaluating ? "Calculando los modos..." : c ? "No se encontró lugar para este número de celdas." : "Primero elige un modo."}</div>`;
+    btShowNone(!bt.room ? "Primero ingresa una sala válida." : "Elige un modo para ver un bloque.");
     return;
   }
   const bed = bedBt(), pk = G0.packBlocks(c.d, bt.N, bed), N = bt.N;
-  $("btPrintAside").textContent = `One block${pk.ok && pk.prints > 1 ? `, repeated ${pk.prints} times` : ""}.`;
+  $("btPrintAside").textContent = `One bloque${pk.ok && pk.prints > 1 ? `, repeated ${pk.prints} times` : ""}.`;
   if (!pk.ok) {
-    sum.innerHTML = `<div class="bt-wait">Does not fit this bed.</div>`;
-    fit.innerHTML = `<p><b>Does not fit on ${esc(bed.name)}.</b></p><ul>${pk.reasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul><p>Pick a bigger bed or a mode with a shallower cell (a higher mode).</p>`;
+    sum.innerHTML = `<div class="bt-wait">No cabe en esta cama.</div>`;
+    fit.innerHTML = `<p><b>Does not fit on ${esc(bed.name)}.</b></p><ul>${pk.reasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul><p>Elige una cama más grande o un modo con una celda más somera (un modo más alto).</p>`;
     fit.hidden = false;
-    btShowNone("This cell does not fit the printer bed.");
+    btShowNone("Esta celda no cabe en la cama de impresión.");
     return;
   }
   const caps = btCapsPlan(c, bed);
   if (caps && !caps.ok) {
-    sum.innerHTML = `<div class="bt-wait">Does not fit this bed.</div>`;
+    sum.innerHTML = `<div class="bt-wait">No cabe en esta cama.</div>`;
     fit.innerHTML = `<p><b>The end caps do not fit on ${esc(bed.name)}.</b></p><ul>${caps.reasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>`;
     fit.hidden = false;
-    btShowNone("The end caps do not fit the printer bed.");
+    btShowNone("Las tapas no caben en la cama de impresión.");
     return;
   }
-  const lines = pk.blocks.map((b) => `<p>${b.count} x block of ${b.k} ${b.k === 1 ? "cell" : "cells"}: ${b.size_mm.map((v) => +v.toFixed(1)).join(" x ")} mm, about ${hs(b.minutes)} each</p>`);
-  if (caps) lines.push(`<p>End caps: ${N} (one per cell) on ${caps.plates.length} ${caps.plates.length === 1 ? "plate" : "plates"}, about ${hs(caps.plates.reduce((s, p) => s + p.minutes, 0))} and ${kgs(caps.plates.reduce((s, p) => s + p.grams, 0))} more</p>`);
+  const lines = pk.blocks.map((b) => `<p>${b.count} x bloque of ${b.k} ${b.k === 1 ? "cell" : "cells"}: ${b.size_mm.map((v) => +v.toFixed(1)).join(" x ")} mm, about ${hs(b.minutes)} each</p>`);
+  if (caps) lines.push(`<p>Tapas: ${N} (una por celda) en ${caps.plates.length} ${caps.plates.length === 1 ? "plate" : "plates"}, about ${hs(caps.plates.reduce((s, p) => s + p.minutes, 0))} and ${kgs(caps.plates.reduce((s, p) => s + p.grams, 0))} more</p>`);
   sum.innerHTML = `<div class="bt-stats c3">`
-    + `<div class="bt-stat"><div class="lab">Blocks</div><div class="val">${pk.prints}</div></div>`
-    + `<div class="bt-stat"><div class="lab">Print time</div><div class="val">${esc(hs(pk.totalMinutes))}</div></div>`
+    + `<div class="bt-stat"><div class="lab">Bloques</div><div class="val">${pk.prints}</div></div>`
+    + `<div class="bt-stat"><div class="lab">Tiempo de impresión</div><div class="val">${esc(hs(pk.totalMinutes))}</div></div>`
     + `<div class="bt-stat"><div class="lab">PLA</div><div class="val">${esc(kgs(pk.totalGrams))}</div></div></div>`
-    + `<div class="bt-sumnote"><p><strong>Calculated, not measured.</strong> About figures for a Bambu Lab P1S, 0.4 mm nozzle, PLA; the three numbers above are blocks only.</p>${lines.join("")}${pk.notes && pk.notes.length ? `<p>Note: ${esc(pk.notes.join("; "))}.</p>` : ""}</div>`;
+    + `<div class="bt-sumnote"><p><strong>Calculado, no medido.</strong> Cifras aproximadas para una Bambu Lab P1S, boquilla 0,4 mm, PLA; los tres números de arriba son solo de bloques.</p>${lines.join("")}${pk.notes && pk.notes.length ? `<p>Note: ${esc(pk.notes.join("; "))}.</p>` : ""}</div>`;
   zip.disabled = !G || bt.busy;
   tune.disabled = !G || bt.busy;
   btSchedulePreview();
@@ -3176,7 +3853,7 @@ function btInitViewer() {
   const view = $("btView");
   let renderer;
   try { renderer = new T3.WebGLRenderer({ antialias: true }); }
-  catch (e) { $("btViewNone").textContent = "3D preview unavailable (WebGL is not enabled in this browser). The downloads still work."; btV = { dead: true }; return; }
+  catch (e) { $("btViewNone").textContent = "Vista previa 3D no disponible (WebGL no está habilitado en este navegador). Las descargas funcionan igual."; btV = { dead: true }; return; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setClearColor(0x22252A, 1);
   view.innerHTML = "";
@@ -3227,8 +3904,8 @@ function btBuildPreview() {
   if (!c || !c.rec) return;
   const bed = bedBt(), pk = G0.packBlocks(c.d, bt.N, bed);
   if (!pk.ok) return;
-  if (!G) { btShowNone("Loading the geometry engine..."); return; }
-  if (!T3) { btShowNone("Loading the 3D preview..."); return; }
+  if (!G) { btShowNone("Cargando el motor de geometría..."); return; }
+  if (!T3) { btShowNone("Cargando la vista previa 3D..."); return; }
   btInitViewer();
   if (!btV || btV.dead) return;
   const b = pk.blocks[0], key = JSON.stringify([c.ev.mode.f, b.ny, b.nz, b.k, colour.hex]);
@@ -3258,51 +3935,51 @@ function btBuildPreview() {
 }
 
 /* ---- downloads */
-const SETTINGS = "Bambu Lab P1S profile of the estimate: PLA, 0.4 mm nozzle, layer 0.20 mm, 3 walls, 15 % infill, no supports, chamber fan off. Print every part in the orientation of its STL, the block with its 120 mm face standing on its side.";
+const SETTINGS = "Perfil Bambu Lab P1S de la estimación: PLA, boquilla 0,4 mm, capa 0,20 mm, 3 perímetros, relleno 15 %, sin soportes, ventilador de cámara apagado. Imprime cada pieza en la orientación de su STL, el bloque con su cara de 120 mm de pie sobre el canto.";
 function btStem(c) { return G.stem(c.d); }
 function btReadme(c, pk, caps, bed, folder) {
   const { ev, id, rec, d } = c, f = ev.mode.f, N = bt.N, L = [];
   const v = c.x.v || BP.verdict(ev);
-  L.push("Soundblooms bass trap - a folded quarter-wave resonator tuned to one room mode");
-  L.push("Made with the Soundblooms Diffuser Generator - https://soundblooms.com");
-  L.push("Source, GPL-3.0 licence and a place for questions and results: https://github.com/Chronosauros/diffuser-generator", "");
-  L.push("Calculated, not measured. Nobody has printed these cells and measured them in a room yet: every number below comes from a model, described with its limits at");
+  L.push("Trampa de graves - resonador de cuarto de onda plegado afinado a un modo de sala");
+  L.push("Hecho con el Generador de Difusores Acústicos - https://soundblooms.com");
+  L.push("Source, GPL-3.0 licence and a lugar for questions and results: https://github.com/Chronosauros/diffuser-generator", "");
+  L.push("Calculado, no medido. Nadie ha impreso estas celdas y las ha medido en una sala: todas las cifras siguientes salen de un modelo, descrito con sus límites en");
   L.push(BASS_DOCS_URL, "");
-  L.push("Room");
-  L.push(`  ${bt.L.map((x) => x.toFixed(1)).join(" x ")} m (length x width x height), walls: ${alphaName(bt.alpha)}, alpha ${bt.alpha.toFixed(2)} (a guess, and it matters: with damped walls the same trap can do almost nothing)`, "");
-  L.push("Mode");
+  L.push("Sala");
+  L.push(`  ${bt.L.map((x) => x.toFixed(1)).join(" x ")} m (length x width x height), muros: ${alphaName(bt.alpha)}, alpha ${bt.alpha.toFixed(2)} (a guess, and it matters: with damped muros the same trap can do almost nothing)`, "");
+  L.push("Modo");
   L.push(`  ${f1(f)} Hz, indices ${modeIdx(ev.mode)}, ${ev.mode.kind}; verdict on this page (best case, up to 8 cells): ${v.label}${v.approximate ? " (~ approximate)" : ""}${v.uncertain ? " (? uncertain)" : ""}`, "");
-  L.push(`Cells and place: ${N} ${N === 1 ? "cell" : "cells"}`);
+  L.push(`Cells and lugar: ${N} ${N === 1 ? "cell" : "cells"}`);
   L.push(`  Place: ${ev.anchors[id].text}`);
-  L.push(`  The cells (120 x 120 mm each) sit in one tight patch around that place: the cells nearest to it on the 120 mm grid of the walls (${N} in all).`, "");
-  L.push("Calculated effect for this case");
-  L.push(`  Mode decay (T60) at ${wallsText(bt.alpha)}: ${t60s(ev.t60Before)} to ${t60s(rec.t60After)}${aboutNum(rec.decayFactor) >= 1.1 && !ev.noEffect ? `, decays about ${aboutX(rec.decayFactor)}x faster` : ""}`);
-  L.push(`  Peak of the mode: ${dbs(rec.peakDropDb)}`);
-  if (N === 1) L.push("  One cell alone is practically inaudible.");
-  if (ev.noEffect) L.push("  Your walls already damp this mode faster than the cell rings - a trap here would not shorten the decay.");
+  L.push(`  Las celdas (120 x 120 mm cada una) se sitúan en una zona compacta alrededor de ese lugar: las celdas más cercanas a él en la grilla de 120 mm de los muros (${N}  en total).`, "");
+  L.push("Efecto calculado para este caso");
+  L.push(`  Decaimiento del modo (T60) con ${wallsText(bt.alpha)}: ${t60s(ev.t60Before)} to ${t60s(rec.t60After)}${aboutNum(rec.decayFactor) >= 1.1 && !ev.noEffect ? `, decays about ${aboutX(rec.decayFactor)}x faster` : ""}`);
+  L.push(`  Pico del modo: ${dbs(rec.peakDropDb)}`);
+  if (N === 1) L.push("  Una celda sola es prácticamente inaudible.");
+  if (ev.noEffect) L.push("  Tus muros ya amortiguan este modo más rápido de lo que resuena la celda: una trampa aquí no acortaría el decaimiento.");
   if (rec.approximate) L.push(`  ~ approximate: ${rec.approximateReasons.join("; ")}; the numbers ${APPROX_TEXT}`);
   if (ev.uncertain.length) L.push(`  ? uncertain: ${ev.uncertain.join("; ")}`);
-  L.push("", "What nobody has measured yet");
+  L.push("", "Lo que nadie ha medido todavía");
   FIXED_LINES.forEach((t) => L.push(`  - ${t}`));
   L.push("  For broadband bass, porous or membrane traps in the corners do more per kilogram of material; this is a narrow tool for one ringing mode.");
-  L.push("", "What to print");
-  pk.blocks.forEach((b) => L.push(`  ${b.count} x ${b.name}.stl - block of ${b.k} ${b.k === 1 ? "cell" : "cells"}, ${b.size_mm.map((x) => +x.toFixed(1)).join(" x ")} mm, about ${hs(b.minutes)} and ${kgs(b.grams)} each`));
+  L.push("", "Qué imprimir");
+  pk.blocks.forEach((b) => L.push(`  ${b.count} x ${b.name}.stl - bloque of ${b.k} ${b.k === 1 ? "cell" : "cells"}, ${b.size_mm.map((x) => +x.toFixed(1)).join(" x ")} mm, about ${hs(b.minutes)} and ${kgs(b.grams)} each`));
   caps.plates.forEach((p) => L.push(`  1 x ${btCapsName(c, caps, p)}.stl - end caps (${p.items.length} on this plate), about ${hs(p.minutes)} and ${kgs(p.grams)}`));
-  L.push(`  Cells: ${N}. Blocks: ${pk.prints}. End caps: ${N} (one per cell, the nominal insert, needed: it closes the channel).`);
-  L.push(`  Total, about: ${hs(pk.totalMinutes + caps.plates.reduce((s, p) => s + p.minutes, 0))} and ${kgs(pk.totalGrams + caps.plates.reduce((s, p) => s + p.grams, 0))} PLA (blocks ${hs(pk.totalMinutes)}, ${kgs(pk.totalGrams)}).`);
-  L.push(`  Printer bed: ${bed.name}, ${bed.x} x ${bed.y} x ${bed.z} mm, 5 mm kept free on every axis.`);
+  L.push(`  Cells: ${N}. Bloques: ${pk.prints}. Tapas: ${N} (one per celda, the nominal insert, needed: it closes the channel).`);
+  L.push(`  Total, unos: ${hs(pk.totalMinutes + caps.plates.reduce((s, p) => s + p.minutes, 0))} and ${kgs(pk.totalGrams + caps.plates.reduce((s, p) => s + p.grams, 0))} PLA (bloques ${hs(pk.totalMinutes)}, ${kgs(pk.totalGrams)}).`);
+  L.push(`  Cama de impresión: ${bed.name}, ${bed.x} x ${bed.y} x ${bed.z} mm, se dejan 5 mm libres en cada eje.`);
   L.push("  The estimate is a fit to a few sliced parts: only for a Bambu Lab P1S, 0.4 mm nozzle, PLA; approximate.", "");
-  L.push("Print settings");
+  L.push("Ajustes de impresión");
   L.push(`  ${SETTINGS}`, "");
-  L.push("Assembly");
-  L.push("  1. Push one end cap into the window in the side wall at the end of every channel.");
-  L.push("  2. Seal the flange of the cap with foam or aluminium tape. This is untested: a leak raises the tuning frequency of the cell.");
-  L.push("  3. Fix the blocks on the wall at the place above, the face with the slit toward the room.", "");
-  L.push("Tuning inserts");
+  L.push("Montaje");
+  L.push("  1. Inserta una tapa en la ventana de la pared lateral, al final de cada canal.");
+  L.push("  2. Sella la pestaña de la tapa con espuma o cinta de aluminio. Esto no está probado: una fuga sube la frecuencia de afinación de la celda.");
+  L.push("  3. Fija los bloques en el muro en el lugar indicado arriba, con la cara de la ranura hacia la sala.", "");
+  L.push("Insertos de afinación");
   L.push("  Only with a measurement of the decay before and after (a sweep and a decay plot with any measurement microphone, e.g. in REW, https://www.roomeqwizard.com/).");
-  L.push("  Without a measurement print the nominal end caps from this ZIP and use them as they are. The plate of tuning inserts is a separate download on the page.", "");
-  L.push("Try it and tell us");
-  L.push("  This is an experiment you can join: measure the decay of this mode before and after and tell us what you got:");
+  L.push("  Without a measurement imprimir the nominal end caps from this ZIP and use them as they are. The plate of tuning inserts is a separate download on the page.", "");
+  L.push("Pruébalo y cuéntanos");
+  L.push("  Esto es un experimento al que puedes sumarte: mide el decaimiento de este modo antes y después y cuéntanos qué obtuviste:");
   L.push(`  ${BASS_DISCUSSIONS_URL}`, "");
   L.push(`Generated by the Soundblooms Diffuser Generator, bass traps. Folder: ${folder}`);
   return L.join("\n") + "\n";
@@ -3327,7 +4004,7 @@ async function btDownloadZip() {
     const files = [];
     for (let i = 0; i < pk.blocks.length; i++) {
       const b = pk.blocks[i];
-      st(`Building block ${i + 1} of ${pk.blocks.length}...`);
+      st(`Building bloque ${i + 1} of ${pk.blocks.length}...`);
       await sleep(20);
       files.push({ name: `${folder}/${b.name}.stl`, data: stlBytes(meshOfSolid(G.blockSolid(c.d, G.planBlock(c.d, b.ny, b.nz, b.k)))) });
     }
@@ -3336,14 +4013,14 @@ async function btDownloadZip() {
       await sleep(20);
       files.push({ name: `${folder}/${btCapsName(c, caps, caps.plates[i])}.stl`, data: stlBytes(meshOfSolid(G.platesSolid(c.d, bp1, caps.plates[i]))) });
     }
-    st("Packing the ZIP...");
+    st("Empaquetando el ZIP...");
     await sleep(20);
     files.push({ name: `${folder}/README.txt`, data: new TextEncoder().encode(btReadme(c, pk, caps, bed, folder)) });
     saveFile(folder + ".zip", makeZip(files), "application/zip");
     st(`Saved ${folder}.zip (${pk.blocks.length} block ${pk.blocks.length === 1 ? "file" : "files"}, ${caps.plates.length} end-cap ${caps.plates.length === 1 ? "plate" : "plates"}, README).`);
   } catch (e) {
-    st("Could not build the ZIP.");
-    showError("Could not build the bass trap files: " + (e.message || e));
+    st("No se pudo construir el ZIP.");
+    showError("Could not build the bass trap archivos: " + (e.message || e));
   } finally {
     bt.busy = false;
     btRenderPrint();
@@ -3359,9 +4036,9 @@ async function btDownloadTuning() {
     const bed = bedBt(), bp1 = G.planBlock(c.d, 1, 1, 1);
     const tp = G.packPlates(c.d, bp1, bed, { caps: 0, tuning: true });
     if (!tp.ok) throw new Error(tp.reasons.join("; "));
-    if (!tp.plates.length) throw new Error("no tuning inserts for this cell");
+    if (!tp.plates.length) throw new Error("no hay insertos de afinación para esta celda");
     const name = (i) => btStem(c) + "-tuning-inserts-plate" + (tp.plates.length > 1 ? `-${i + 1}of${tp.plates.length}` : "");
-    st("Building the tuning inserts plate...");
+    st("Construyendo la placa de insertos de afinación...");
     await sleep(20);
     if (tp.plates.length === 1) {
       saveFile(name(0) + ".stl", stlBytes(meshOfSolid(G.platesSolid(c.d, bp1, tp.plates[0]))), "model/stl");
@@ -3369,12 +4046,12 @@ async function btDownloadTuning() {
     } else {
       const folder = btStem(c) + "-tuning-inserts";
       const files = tp.plates.map((p, i) => ({ name: `${folder}/${name(i)}.stl`, data: stlBytes(meshOfSolid(G.platesSolid(c.d, bp1, p))) }));
-      files.push({ name: `${folder}/README.txt`, data: new TextEncoder().encode("Tuning inserts of the Soundblooms bass trap cell for " + f1(c.ev.mode.f) + " Hz (steps of 0.5 % of the frequency; 0 is the nominal end cap, minus / plus lower / raise the tuning).\nUse them only with a measurement of the decay before and after; without one print the nominal end caps from the main ZIP.\nCalculated, not measured. " + BASS_DOCS_URL + "\n") });
+      files.push({ name: `${folder}/README.txt`, data: new TextEncoder().encode("Tuning inserts of the Soundblooms bass trap celda for " + f1(c.ev.mode.f) + " Hz (steps of 0.5 % of the frequency; 0 is the nominal end cap, minus / plus lower / raise the tuning).\nUse them only with a measurement of the decay before and after; without one print the nominal end caps from the main ZIP.\nCalculated, not measured. " + BASS_DOCS_URL + "\n") });
       saveFile(folder + ".zip", makeZip(files), "application/zip");
       st(`Saved ${folder}.zip (${tp.plates.length} plates). Use these only with a decay measurement before and after.`);
     }
   } catch (e) {
-    st("Could not build the tuning inserts.");
+    st("No se pudieron construir los insertos de afinación.");
     showError("Could not build the tuning inserts: " + (e.message || e));
   } finally {
     bt.busy = false;
@@ -3477,7 +4154,7 @@ async function boot() {
   resetDepth();
   update();
   buildTabs();
-  setStatus("Loading the geometry engine...");
+  setStatus("Cargando el motor de geometría...");
   const loadManifold = (async () => {
     const mod = await import(CDN_MANIFOLD);
     const m = await mod.default();
@@ -3494,12 +4171,12 @@ async function boot() {
   })();
   const [a, b] = await Promise.allSettled([loadManifold, loadThree]);
   if (b.status === "rejected") {
-    $("viewNone").textContent = "The 3D preview could not be loaded (three.js from the CDN). The downloads still work.";
-    showError("Could not load three.js from the CDN: " + (b.reason && b.reason.message || b.reason) + ". Check your connection and reload.");
+    $("viewNone").textContent = "No se pudo cargar la vista previa 3D (three.js desde el CDN). Las descargas funcionan igual.";
+    showError("Could not load three.js from the CDN: " + (b.reason && b.reason.message || b.reason) + ". Revisa tu conexión y recarga.");
   }
   if (a.status === "rejected") {
-    setStatus("The geometry engine did not load.");
-    showError("Could not load the geometry engine (manifold-3d from the CDN): " + (a.reason && a.reason.message || a.reason) + ". Check your connection and reload.");
+    setStatus("No se cargó el motor de geometría.");
+    showError("Could not load the geometry engine (manifold-3d from the CDN): " + (a.reason && a.reason.message || a.reason) + ". Revisa tu conexión y recarga.");
     return;
   }
   update();
