@@ -82,3 +82,18 @@ T. J. Cox and P. D'Antonio, *Acoustic Absorbers and Diffusers*, 3rd ed., CRC Pre
 design intent, calculated from the shape of the tiles, not a measurement.
 
 Made by [Soundblooms](https://soundblooms.com).
+
+---
+
+## Español / Fork
+
+A Spanish translation and accessibility overhaul of this tool lives in
+**https://github.com/liloalfa/diffuser-generator-es** (also published at
+https://app.consultoria-sso.cl/acus/QRD/).
+
+It adds a full Spanish translation layer, a light/dark theme switch, and a
+system-font type scale — while leaving the three canonical cores
+(`diffuser-core`, `bass-physics`, `bass-geometry`) untouched. 307 tests pass.
+
+The upstream English version remains the canonical source for the geometry
+and physics.
