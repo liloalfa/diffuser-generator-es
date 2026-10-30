@@ -31,6 +31,8 @@ derivado:
 
 ## Repositorio
 
+- **Fecha de publicación del código:** 30 de octubre de 2026.
+
 - **Este fork (español):** https://github.com/liloalfa/diffuser-generator-es
 - **Upstream original (inglés):** https://github.com/Chronosauros/diffuser-generator
 
